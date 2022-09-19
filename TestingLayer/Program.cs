@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace TestingLayer
 {
@@ -6,7 +7,14 @@ namespace TestingLayer
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var list = new ArrayList();
+            list.Add(true);
+            list.Add("Success");
+
+            var status = list[0];
+            var message = list[1];
+            Console.WriteLine(status);
+            Console.WriteLine(message);
         }
     }
 }

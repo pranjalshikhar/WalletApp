@@ -3,7 +3,9 @@ using DataAccessLayer.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections;
 using System.Globalization;
+using System.Linq;
 
 namespace ServiceLayer.Controllers
 {
@@ -72,7 +74,7 @@ namespace ServiceLayer.Controllers
             {
                 amount = _walletServices.ViewBalance(emailId);
                 if(amount > 0)
-                    message = "Balance in " + emailId +" is " + amount;
+                    message = "Balance in " + emailId.Split('@').ElementAtOrDefault(0) + " is " + "\u20B9" + amount;
             }
             catch (Exception)
             {
@@ -83,18 +85,18 @@ namespace ServiceLayer.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public JsonResult AddMoneyUsingCard(string cardNumber, string emailId, int cvv, DateTime expiryDate, decimal amount)
         {
             bool status = false;
             string message = null;
+            var arrayList = new ArrayList();
             try
             {
-                status = _walletServices.AddMoneyUsingCard(cardNumber, emailId, cvv, expiryDate, amount);
-                if (status)
+                arrayList = _walletServices.AddMoneyUsingCard(cardNumber, emailId, cvv, expiryDate, amount);
+                if (Convert.ToBoolean(arrayList[0]) == true && Convert.ToString(arrayList[1]) == "Success")
                     message = "Money added to Wallet using Card.";
                 else
-                    message = "Money is not added to Wallet.";
+                    message = Convert.ToString(arrayList[1]);
             }
             catch (Exception)
             {
