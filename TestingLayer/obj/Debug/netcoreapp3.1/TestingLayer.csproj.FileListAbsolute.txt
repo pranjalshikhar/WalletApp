@@ -52,3 +52,4 @@ C:\Users\shikh\Documents\GitHub\WalletApp\TestingLayer\bin\Debug\netcoreapp3.1\r
 C:\Users\shikh\Documents\GitHub\WalletApp\TestingLayer\bin\Debug\netcoreapp3.1\DataAccessLayer.dll
 C:\Users\shikh\Documents\GitHub\WalletApp\TestingLayer\bin\Debug\netcoreapp3.1\DataAccessLayer.pdb
 C:\Users\shikh\Documents\GitHub\WalletApp\TestingLayer\obj\Debug\netcoreapp3.1\TestingLayer.csproj.CopyComplete
+C:\Users\shikh\Documents\GitHub\WalletApp\TestingLayer\bin\Debug\netcoreapp3.1\appsettings.json

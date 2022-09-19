@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
+using System.Collections;
 
 namespace DataAccessLayer.Services
 {
@@ -32,10 +33,11 @@ namespace DataAccessLayer.Services
             return amount;
         }
 
-        public bool AddMoneyUsingCard(string cardNumber, string emailId, int cvv, DateTime expiryDate, decimal amount)
+        public ArrayList AddMoneyUsingCard(string cardNumber, string emailId, int cvv, DateTime expiryDate, decimal amount)
         {
             bool status = false;
             string message = null;
+            var arrayList = new ArrayList();
             try
             {
                 if (cardNumber.ToString().Length == 16)
@@ -68,12 +70,16 @@ namespace DataAccessLayer.Services
                                             walletAppContext.Commit();
                                             status = true;
                                             message = "Success";
+                                            arrayList.Add(status);
+                                            arrayList.Add(message);
                                         }
                                     }
                                     catch (Exception)
                                     {
                                         walletAppContext.Rollback();
                                         status = false;
+                                        arrayList.Add(status);
+                                        arrayList.Add(message);
                                         throw;
                                     }
                                 }
@@ -100,18 +106,22 @@ namespace DataAccessLayer.Services
                                             walletAppContext.Commit();
                                             status = true;
                                             message = "Success";
+                                            arrayList.Add(status);
+                                            arrayList.Add(message);
                                         }
                                     }
                                     catch (Exception)
                                     {
                                         walletAppContext.Rollback();
                                         status = false;
+                                        arrayList.Add(status);
+                                        arrayList.Add(message);
                                         throw;
                                     }
                                 }
                             }
                             else
-                                message = "amount should be greater than 0";
+                                message = "Amount should be greater than 0";
                         }
                         else
                             message = "Incorrect Expiry Date";
@@ -126,9 +136,11 @@ namespace DataAccessLayer.Services
             {
                 status = false;
                 message = "Invalid Credentials";
+                arrayList.Add(status);
+                arrayList.Add(message);
                 throw;
             }
-            return status;
+            return arrayList;
         }
     }
 }
