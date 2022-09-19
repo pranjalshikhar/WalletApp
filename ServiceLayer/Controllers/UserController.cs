@@ -22,7 +22,7 @@ namespace ServiceLayer.Controllers
         }
 
         [HttpGet]
-        public JsonResult VerifyUSer(string emailId, string password)
+        public JsonResult VerifyUser(string emailId, string password)
         {
             bool status = false;
             string message = null;
@@ -32,7 +32,7 @@ namespace ServiceLayer.Controllers
                 if (status)
                     message = "Valid Credentials.";
                 else
-                    message = "Invalid Credentials."
+                    message = "Invalid Credentials.";
             }
             catch (Exception)
             {
@@ -43,7 +43,6 @@ namespace ServiceLayer.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public JsonResult RegisterUser(string name, string emailId, string number, string password)
         {
             bool status = false;
