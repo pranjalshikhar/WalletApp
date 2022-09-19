@@ -22,7 +22,7 @@ namespace DataAccessLayer.Services
             string passwordRegex = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$";
             try
             {
-                if (Regex.IsMatch(emailId, emailRegex, RegexOptions.IgnoreCase) && Regex.IsMatch(password, passwordRegex))
+                if (!string.IsNullOrEmpty(emailId) && Regex.IsMatch(emailId, emailRegex) && !string.IsNullOrEmpty(password) && Regex.IsMatch(password, passwordRegex))
                 {
                     var userEmailId = _walletAppContext.User.Where(u => u.EmailId == emailId && u.Password == password).FirstOrDefault();
 
@@ -76,5 +76,21 @@ namespace DataAccessLayer.Services
             }
             return status;
         } 
+
+        public string GetUserByUserName(string emailId)
+        {
+            try
+            {
+                var userName = (from u in _walletAppContext.User
+                                where u.EmailId == emailId
+                                select u.Name).FirstOrDefault();
+                return userName;
+            }
+            catch (Exception)
+            {
+                return "Exception Caught.";
+                throw;
+            }
+        }
     }
 }
