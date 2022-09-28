@@ -58,7 +58,7 @@ namespace PresentationLayer.Controllers
                     return RedirectToAction("LoginHome", "Login");
                 }
                 else
-                    View("Error");
+                    View("Home", "Error");
             }
             catch (Exception)
             {
