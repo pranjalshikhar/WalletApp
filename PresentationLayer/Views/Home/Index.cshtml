@@ -2,90 +2,31 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<header>
-    <img src="./images/title.png"/>
-</header>
 
-<div class="row">
-    <div class="col">
-        
-        <table>
-            <tr>
-                <td>
-                    <img src=~/images/icons8-wallet-96.png />
-                </td>
-                <td>
-                    <label>Instant Payment</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src=~/images/icons8-coins-96.png />
-                </td>
-                <td>
-                    <label>Redeem Points with every transfer</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src=~/images/icons8-next-page-96.png />
-                </td>
-                <td>
-                    <label>Easy and hassle free transfer</label>
-                </td>
-            </tr>
-        </table>
-
+<div class="row" >
+    <div class="col first">
+        <a asp-controller="Home" asp-action="Index">
+            <img src="~/images/walletera.png" />
+        </a>
+        <br /> <br />
+        <span>
+            <a asp-controller="Home" asp-action="Login">Login</a>
+            <br />
+            <a asp-controller="Home" asp-action="Register">Register</a>
+        </span>
+        <span>
+            <label>
+                Transfer<br />is Safe.
+            </label>
+        </span>
+        <span id="payment-logo">
+            <img src="~/images/MasterCard.png" />
+            <img src="~/images/Visa.png" />
+            <img src="~/images/Other-Pay-Method.png" />
+            <img src="~/images/Other-Pay-Method-1.png" />
+        </span>
     </div>
-    <div class="col ustify-content-center">
-
-        <div class="wrapper">
-            <div class="form-container">
-                <div class="slide-controls">
-                    <input type="radio" name="slide" id="login" checked>
-                    <input type="radio" name="slide" id="signup">
-                    <label for="login" class="slide login">Login</label>
-                    <label for="signup" class="slide signup">Signup</label>
-                    <div class="slider-tab"></div>
-                </div>
-                <div class="form-inner">
-                    <form asp-action="CheckRole" class="login" method="get">
-                        <div class="field">
-                            @*<input type="text" placeholder="Email Address" id="emailId" name="emailId" class="form-control" required>*@
-                            @Html.TextBox("email")
-                        </div>
-                        <div class="field">
-                            @*<input type="password" placeholder="Password" id="password" name="password" class="form-control" required>*@
-                            @Html.Password("password")
-                        </div>
-                        <div class="pass-link"><a href="#">Forgot password?</a></div>
-                        <div class="field btn">
-                            <div class="btn-layer"></div>
-                            <input type="submit" value="Login">
-                        </div>
-                        <div class="signup-link">Not a member? <a href="">Signup now</a></div>
-                    </form>
-                    <form action="#" class="signup">
-                        <div class="field">
-                            <input type="text" placeholder="User Name" required>
-                        </div>
-                        <div class="field">
-                            <input type="text" placeholder="Email Address" required>
-                        </div>
-                        <div class="field">
-                            <input type="password" placeholder="Password" required>
-                        </div>
-                        <div class="field">
-                            <input type="password" placeholder="Confirm password" required>
-                        </div>
-                        <div class="field btn">
-                            <div class="btn-layer"></div>
-                            <input type="submit" value="Signup">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
+    <div class="col second">
+        <img src="~/images/star-small.png" />
     </div>
 </div>

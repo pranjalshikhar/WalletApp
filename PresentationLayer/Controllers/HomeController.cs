@@ -33,9 +33,19 @@ namespace PresentationLayer.Controllers
             return View();
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
         public IActionResult CheckRole(IFormCollection frm)
         {
-            string emailId = frm["email"];
+            string emailId = frm["emailId"];
             string password = frm["password"];
             string userName = _loginServices.GetUserByUserName(emailId);
             try
@@ -54,7 +64,7 @@ namespace PresentationLayer.Controllers
             {
                 throw;
             }
-            return View("Index");
+            return View("LoginHome");
         }
     }
 }
