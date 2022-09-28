@@ -1,0 +1,61 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextaccessor
+
+@{
+    Layout = "~/Views/Shared/_Login.cshtml";
+}
+
+<div class="row">
+    <div class="col first">
+        <a asp-controller="Home" asp-action="Index">
+            <img src="~/images/walletera.png" />
+        </a>
+        <br /> <br />
+        <span class="register-text">
+            <a asp-controller="Home" asp-action="Register">Register</a>
+        </span>
+        <br /> <br />
+        <div class="login">
+            <h4 class="login-text">Login</h4>
+            <form asp-action="CheckRole">
+                <label>Email</label>
+                @{
+                    if (httpContextaccessor.HttpContext.Request.Cookies["UserId"] != null)
+                    {
+                        @Html.TextBox("emailId", httpContextaccessor.HttpContext.Request.Cookies["UserId"]);
+                    }
+                    else
+                    {
+                        @Html.TextBox("emailId");
+                    }
+                }
+                <br /> <br />
+                <label>Password</label>
+                @{
+                    if (httpContextaccessor.HttpContext.Request.Cookies["Password"] != null)
+                    {
+                        @Html.Password("password", httpContextaccessor.HttpContext.Request.Cookies["Password"])
+                        ;
+                    }
+                    else
+                    {
+                        @Html.Password("password")
+                        ;
+                    }
+                }
+                <br /> <br />
+                <input type="submit" class="submit">
+                @*<br> <br>
+        <input type="checkbox" class="checkbox">
+        <label for="Remember" class="remember">Remember Me</label>*@
+
+                <br><br>
+                <a href="#" class="password">Forgot password?</a>
+            </form>
+        </div>
+
+
+    </div>
+    <div class="col">
+        <img class="second" src="~/images/cards.png" />
+    </div>
+</div>

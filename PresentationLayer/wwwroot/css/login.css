@@ -1,0 +1,122 @@
+﻿
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
+
+* {
+    font-family: 'Krona One', sans-serif;
+    overflow: hidden;
+}
+
+.row {
+    height: 100%;
+}
+
+.first {
+    margin: 30px 0 0 100px;
+}
+
+.second {
+    margin-top: 200px;
+    transform: scale(0.8);
+}
+
+
+a {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 31px;
+    color: #FFFFFF;
+}
+
+.login {
+    width: fit-content;
+    height: fit-content;
+    background: linear-gradient(147.75deg, #FC85AE -15.94%, #9E579D 22.51%, #574B90 69.94%, #303A52 116.51%);
+    border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-text {
+    width: 144px;
+    height: 50px;
+    left: 230px;
+    top: 268px;
+    font-style: normal;
+    font-size: 25px;
+    line-height: 50px;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    color: #FFFFFF;
+}
+
+label {
+    width: 150px;
+    height: 25px;
+    left: 143px;
+    top: 413px;
+    font-style: normal;
+    font-size: 18px;
+    text-align: left;
+    margin-right: auto;
+    margin-left: auto;
+    color: #FFFFFF;
+}
+
+input {
+    width: fit-content;
+    height: 48px;
+    left: 129px;
+    top: 442px;
+    background: #EDEFF2;
+    border-radius: 12px;
+    font-family: Arial;
+    padding: 0 10px 0 10px;
+}
+
+.submit {
+    width: 141px;
+    height: 44px;
+    left: 129px;
+    top: 668px;
+    background: linear-gradient(144.85deg, #03002C -25.7%, #BB0029 38.5%, #F5841A 82.33%, #F2E8C6 130.1%);
+    border-radius: 20px;
+    font-weight: 400;
+    font-size: 15px;
+    text-transform: uppercase;
+    line-height: 25px;
+    color: #fff;
+    font-family: 'Krona One', sans-serif;
+}
+
+*:focus {
+    outline: none;
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+    left: 129px;
+    top: 735px;
+}
+
+.remember {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+form {
+    padding: 30px;
+}
+
+[type="checkbox"] {
+    vertical-align: middle;
+}
+
+
+.password {
+    font-size: 16px;
+}

@@ -1,0 +1,58 @@
+﻿@model DataAccessLayer.Models.User
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Register.cshtml";
+}
+
+
+<div class="row">
+    <div class="col first">
+        <a asp-controller="Home" asp-action="Index">
+            <img src="~/images/walletera.png" />
+        </a>
+        <br />
+        <span class="register-text">
+            <a asp-controller="Home" asp-action="Login">Login</a>
+        </span>
+        <br /> <br />
+        <div class="login">
+            <h4 class="register-text">Register</h4>
+            <form asp-action="SaveRegister">
+                <label>Username</label>
+                @Html.TextBox("userName")
+                <br /> <br />
+                <label>Email</label>
+                @Html.TextBox("emailId")
+                <br /> <br />
+                <label>Mobile No.</label>
+                @Html.TextBox("number")
+                <br /> <br />
+                <label>Password</label>
+                <span class="password-container">
+                    @Html.Password("password")
+                    <i class="fa-solid fa-eye" id="eye"></i>
+                </span>
+                <br /> <br />
+                <input type="submit" class="submit">
+            </form>
+        </div>
+
+
+    </div>
+    <div class="col">
+        <img class="second" src="~/images/iPhone 13 Pro.png" />
+    </div>
+</div>
+
+
+
+<script>
+    const passwordField = document.querySelector("#password");
+    const eyeIcon = document.querySelector("#eye");
+    eye.addEventListener("click", function () {
+        this.classList.toggle("fa-eye-slash");
+        const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+        passwordField.setAttribute("type", type);
+    })
+</script>
