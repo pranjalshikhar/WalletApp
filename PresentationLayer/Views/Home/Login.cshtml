@@ -4,58 +4,80 @@
     Layout = "~/Views/Shared/_Login.cshtml";
 }
 
-<div class="row">
-    <div class="col first">
-        <a asp-controller="Home" asp-action="Index">
-            <img src="~/images/walletera.png" />
-        </a>
-        <br /> <br />
-        <span class="register-text">
-            <a asp-controller="Home" asp-action="Register">Register</a>
-        </span>
-        <br /> <br />
-        <div class="login">
-            <h4 class="login-text">Login</h4>
-            <form asp-action="CheckRole">
-                <label>Email</label>
-                @{
-                    if (httpContextaccessor.HttpContext.Request.Cookies["UserId"] != null)
-                    {
-                        @Html.TextBox("emailId", httpContextaccessor.HttpContext.Request.Cookies["UserId"]);
+<section>
+    <div class="container">
+        <div class="user signinBx">
+            <div class="imgBx">
+            </div>
+            <div class="formBx">
+                <form asp-action="CheckRole">
+                    <a asp-controller="Home" asp-action="Index">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                    <br />
+                    <h2>login</h2>
+                    <br />
+                    @{
+                        if (httpContextaccessor.HttpContext.Request.Cookies["UserId"] != null)
+                        {
+                            <input type="email" placeholder="naruto@konoha.com" name="emailId" , httpContextaccessor.HttpContext.Request.Cookies["UserId"] />
+                        }
+                        else
+                        {
+                            <input type="email" placeholder="naruto@konoha.com" name="emailId" />
+                        }
                     }
-                    else
-                    {
-                        @Html.TextBox("emailId");
+                    @{
+                        if (httpContextaccessor.HttpContext.Request.Cookies["Password"] != null)
+                        {
+                            <input type="password" placeholder="**********" name="password" , httpContextaccessor.HttpContext.Request.Cookies["Password"] />
+                        }
+                        else
+                        {
+                            <input type="password" placeholder="**********" name="password" />
+                        }
                     }
-                }
-                <br /> <br />
-                <label>Password</label>
-                @{
-                    if (httpContextaccessor.HttpContext.Request.Cookies["Password"] != null)
-                    {
-                        @Html.Password("password", httpContextaccessor.HttpContext.Request.Cookies["Password"])
-                        ;
-                    }
-                    else
-                    {
-                        @Html.Password("password")
-                        ;
-                    }
-                }
-                <br /> <br />
-                <input type="submit" class="submit">
-                @*<br> <br>
-        <input type="checkbox" class="checkbox">
-        <label for="Remember" class="remember">Remember Me</label>*@
-
-                <br><br>
-                <a href="#" class="password">Forgot password?</a>
-            </form>
+                    <input type="submit" class="submit" value="login" style="background: #DB1C51;">
+                    <p class="signup">
+                        Don't have an account ?
+                        <a href="#" onclick="toggleForm();">register.</a>
+                    </p>
+                </form>
+            </div>
         </div>
+        <div class="user signupBx">
+            <div class="formBx">
+                <form asp-action="SaveRegister">
+                    <h2>register</h2>
+                    <br />
+                    @*<label>Username</label>
+                    @Html.TextBox("userName")
+                    <label>Email</label>
+                    @Html.TextBox("email")
+                    <label>Mobile Number</label>
+                    @Html.TextBox("number")
+                    <label>Password</label>
+                    @Html.Password("password")*@
+                    <input type="text" placeholder="uzumaki naruto" name="userName" style="color: #6B46B7" />
+                    <input type="email" placeholder="naruto@konoha.com" name="emailId" />
+                    <input type="number" placeholder="9874563210" name="number" />
+                    <input type="password" placeholder="**********" name="password" />
+                    <input type="submit" name="" value="register" style="background: #3E0BA7" />
+                    <p class="login">
+                        Already have an account ?
+                        <a href="#" onclick="toggleForm();">Login.</a>
+                    </p>
+                </form>
+            </div>
+            <div class="imgBox"></div>
+        </div>
+    </div>
+</section>
 
 
-    </div>
-    <div class="col">
-        <img class="second" src="~/images/cards.png" />
-    </div>
-</div>
+<script>
+    const toggleForm = () => {
+        const container = document.querySelector('.container');
+        container.classList.toggle('active');
+    };
+</script>
