@@ -58,13 +58,13 @@ namespace PresentationLayer.Controllers
                     return RedirectToAction("LoginHome", "Login");
                 }
                 else
-                    View("Home", "Error");
+                    View("Shared", "_ErrorLayout");
             }
             catch (Exception)
             {
                 throw;
             }
-            return View("LoginHome");
+            return View("Error");
         }
     }
 }
