@@ -1,3 +1,23 @@
-﻿body {
-    background: #03002C no-repeat center;
+﻿@import url('https://fonts.googleapis.com/css2?family=Sen:wght@400;700&display=swap');
+
+
+body {
+    font-family: 'Sen', sans-serif;
+    color: #f8f8f8;
+    overflow-x: hidden;
+    background: #0f0f0f;
+    cursor: pointer;
+}
+
+body:before {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    display: block;
+    background: #0f0f0f;
+    background-size: cover;
 }
