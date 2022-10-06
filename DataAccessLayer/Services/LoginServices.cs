@@ -9,10 +9,10 @@ namespace DataAccessLayer.Services
 {
     public class LoginServices
     {
-        private readonly WalletAppContext _walletAppContext;
-        public LoginServices(WalletAppContext walletAppContext)
+        private readonly WalletAppContext walletAppContext;
+        public LoginServices(WalletAppContext _walletAppContext)
         {
-            _walletAppContext = walletAppContext;
+            walletAppContext = _walletAppContext;
         }
 
         public bool VerifyUser(string emailId, string password)
@@ -22,9 +22,9 @@ namespace DataAccessLayer.Services
             string passwordRegex = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$";
             try
             {
-                if (Regex.IsMatch(emailId, emailRegex, RegexOptions.IgnoreCase) && Regex.IsMatch(password, passwordRegex))
+                if (!string.IsNullOrEmpty(emailId) && Regex.IsMatch(emailId, emailRegex) && !string.IsNullOrEmpty(password) && Regex.IsMatch(password, passwordRegex))
                 {
-                    var userEmailId = _walletAppContext.User.Where(u => u.EmailId == emailId && u.Password == password).FirstOrDefault();
+                    var userEmailId = walletAppContext.User.Where(u => u.EmailId == emailId && u.Password == password).FirstOrDefault();
 
                     if (userEmailId != null)
                         status = true;
@@ -62,8 +62,8 @@ namespace DataAccessLayer.Services
                         StatusId = 1
                     };
 
-                    _walletAppContext.User.Add(user);
-                    _walletAppContext.SaveChanges();
+                    walletAppContext.User.Add(user);
+                    walletAppContext.SaveChanges();
                     status = true;
                 }
                 else
@@ -76,5 +76,21 @@ namespace DataAccessLayer.Services
             }
             return status;
         } 
+
+        public string GetUserByUserName(string emailId)
+        {
+            try
+            {
+                var userName = (from u in walletAppContext.User
+                                where u.EmailId == emailId
+                                select u.Name).FirstOrDefault();
+                return userName;
+            }
+            catch (Exception)
+            {
+                return "Exception Caught.";
+                throw;
+            }
+        }
     }
 }

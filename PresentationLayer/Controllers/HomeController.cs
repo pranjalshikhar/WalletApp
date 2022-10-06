@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataAccessLayer.Models;
+using DataAccessLayer.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PresentationLayer.Models;
 using System;
@@ -11,11 +14,13 @@ namespace PresentationLayer.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly WalletAppContext _walletAppContext;
+        LoginServices _loginServices;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(WalletAppContext walletAppContext)
         {
-            _logger = logger;
+            _walletAppContext = walletAppContext;
+            _loginServices = new LoginServices(_walletAppContext);
         }
 
         public IActionResult Index()
@@ -23,15 +28,43 @@ namespace PresentationLayer.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Error()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Login()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        public IActionResult CheckRole(IFormCollection frm)
+        {
+            string emailId = frm["emailId"];
+            string password = frm["password"];
+            string userName = _loginServices.GetUserByUserName(emailId);
+            try
+            {
+                bool status = _loginServices.VerifyUser(emailId, password);
+                if (status)
+                {
+                    HttpContext.Session.SetString("userName", userName);
+                    HttpContext.Session.SetString("userEmail", emailId);
+                    return RedirectToAction("LoginHome", "Login");
+                }
+                else
+                    View("Shared", "_ErrorLayout");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return View("Error");
         }
     }
 }
