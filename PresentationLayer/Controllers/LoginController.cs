@@ -22,6 +22,7 @@ namespace PresentationLayer.Controllers
         public IActionResult LoginHome()
         {
             ViewBag.amount = _walletServices.ViewBalance(HttpContext.Session.GetString("userEmail"));
+            ViewBag.userName = _loginServices.GetUserByUserName(HttpContext.Session.GetString("userName"));
             return View();
         }
 
