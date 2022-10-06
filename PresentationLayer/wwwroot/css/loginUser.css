@@ -89,6 +89,10 @@
     transform: scale(0.5);
 }
 
+h2 {
+    text-transform: lowercase;
+}
+
 div.list {
     margin-right: 20px;
 }
@@ -102,6 +106,129 @@ hr {
     background: #fff;
     box-sizing: border-box;
 }
+
+.wallet {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 50px;
+    justify-content: center;
+    margin-top: 3%;
+}
+
+.wallet img {
+    transform: scale(0.8);
+}
+
+.wallet h3 {
+    font-weight: 700;
+}
+
+.load-wallet, .transfer-wallet, .pay-bills, .transfer-bank, .transactions, .redeem-points {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+button.wallet-button {
+    display: inline-block;
+    border: none;
+    padding: 1rem 2rem;
+    margin: 0;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0);
+    color: #f8f8f8;
+    font-family: 'Sen', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background 250ms ease-in-out, transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+h3.activity-text {
+    background: linear-gradient(136.24deg, #0A0A0A -25.7%, #675515 22.02%, #9E7E0E 48.35%, #675515 79.56%, #1E1E1E 121.6%);
+    text-align: center;
+    border-radius: 5px;
+}
+
+
+h5 {
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media screen and (max-width: 800px) {
     nav{
@@ -156,5 +283,16 @@ hr {
         flex-direction: column;
         transform: scale(0.8);
         margin-right: 0px;
+        padding-top: 50px;
+    }
+
+    hr {
+        width: 200px;
+        height: 0px;
+        left: 295px;
+        top: 580px;
+        border: 1px solid #FFFFFF;
+        background: #fff;
+        box-sizing: border-box;
     }
 }
