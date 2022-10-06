@@ -121,16 +121,37 @@ namespace DataAccessLayer.Services
                                 }
                             }
                             else
+                            {
+                                status = false;
                                 message = "Amount should be greater than 0";
+                                arrayList.Add(status);
+                                arrayList.Add(message);
+                            }
+
                         }
                         else
+                        {
+                            status = false;
                             message = "Incorrect Expiry Date";
+                            arrayList.Add(status);
+                            arrayList.Add(message);
+                        }
                     }
                     else
+                    {
+                        status = false;
                         message = "Incorrect CVV";
+                        arrayList.Add(status);
+                        arrayList.Add(message);
+                    }
                 }
                 else
+                {
+                    status = false;
                     message = "Incorrect Card Number";
+                    arrayList.Add(status);
+                    arrayList.Add(message);
+                }
             }
             catch (Exception)
             {

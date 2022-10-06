@@ -1,0 +1,440 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextaccessor
+@using Microsoft.AspNetCore.Http
+@{
+    ViewData["Title"] = "LoginHome";
+    Layout = "~/Views/Shared/_LoginHome.cshtml";
+}
+
+
+<div class="nav">
+    <div class="hamburger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+    </div>
+    <ul class="nav-links">
+        <li>
+            <img src="~/images/password.png" />
+            <a href="#" >change password</a>
+        </li>
+        <li>
+            <img src="~/images/logout.png" />
+            <a asp-controller="Home" asp-action="Login">logout</a>
+        </li>
+    </ul>
+</div>
+
+<div class="about">
+    <div class="list">
+        <img src="~/images/user.png" />
+        <h2>@httpContextaccessor.HttpContext.Session.GetString("userName")</h2>
+    </div>
+    <div class="list">
+        <img src="~/images/amount.png" />
+        <h2>&#x20B9; @ViewBag.amount</h2>
+    </div>
+    <div class="list">
+        <img src="~/images/points.png" />
+        <h2>0 points redeem.</h2>
+    </div>
+</div>
+
+<div>
+    <hr />
+</div>
+
+
+<div class="wallet">
+    <div class="load-wallet">
+        <button onclick="loadWalletFunction()" class="wallet-button">
+            <img src="~/images/load-wallet.png" />
+            <h3>load wallet</h3>
+        </button>
+        
+        <div id="loadWallet" style="display: none">
+            <h3 class="activity-text">load wallet</h3>
+            <div>
+                <label for="credit-card">
+                    <input type="radio" id="credit-card" name="radio" onclick="showHideWallet()" value="card" />
+                    card
+                </label>
+                <label for="net-bank">
+                    <input type="radio" id="net-bank" name="radio" onclick="showHideWallet()" value="net bank" />
+                    net bank
+                </label>
+            </div>
+            <br />
+
+            <div id="bank-image" style="display: none;">
+                <h2 style="text-transform: uppercase; background: linear-gradient(to right, #f32170, #ff6b08, #cf23cf, #eedd44); -webkit-text-fill-color: transparent; -webkit-background-clip: text;">edu bank</h2>
+            </div>
+
+            <div id="net-bank-text" style="display: none;">
+                <h4 style="text-align: center">internet payment banking</h4>
+            </div>
+
+            <form asp-action="SaveAddMoney">
+
+                <div id="cardNumber" style="display: none">
+                    <input type="text" maxlength="16" placeholder="card number" name="cardNumber" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                </div>
+
+                <br />
+
+                <div class="date-cvv" style="display: flex; justify-content: space-between;">
+                    <span id="expiry" style="display: none">
+                        <input type="date" placeholder="dd/mm/yyyy" name="expiry" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                    </span>
+
+                    <span id="cvv" style="display: none">
+                        <input type="text" maxlength="3" placeholder="cvv" name="cvv" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0; width: 3ch;" />
+                    </span>
+                </div>
+
+                <br />
+
+                <div id="amount" style="display: none">
+                    <input type="text" placeholder="₹ xxxx.xx" name="amount" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                </div>
+
+                <br />
+
+                <div id="pay" style="display: none">
+                    <button value="submit" role="button" style=" font-weight: 700; font-size: 1.2rem; background: linear-gradient(136.24deg, #0A0A0A -25.7%, #675515 22.02%, #9E7E0E 48.35%, #675515 79.56%, #1E1E1E 121.6%); border: none; padding: 10px; width: -webkit-fill-available; border-radius: 10px; color: #f0f0f0;">pay</button>
+                </div>
+
+            </form>
+
+
+
+            <form style="width: 202.8px;">
+
+                <div id="net-bank-email" style="display: none;">
+                    <input type="email" placeholder="login name" name="emailId" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                </div>
+
+                <br />
+
+                <div id="net-bank-password" style="display: none;">
+                    <input type="password" placeholder="password" name="password" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                </div>
+
+                <br />
+
+                <div id="net-bank-amount" style="display: none">
+                    <input type="text" placeholder="₹ xxxx.xx" name="amount" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                </div>
+
+                <br />
+
+                <div id="net-bank-pay" style="display: none;">
+                    <button value="submit" role="button" style=" font-weight: 700; font-size: 1.2rem; background: linear-gradient(136.24deg, #0A0A0A -25.7%, #675515 22.02%, #9E7E0E 48.35%, #675515 79.56%, #1E1E1E 121.6%); border: none; padding: 10px; width: -webkit-fill-available; border-radius: 10px; color: #f0f0f0;">pay</button>
+                </div>
+
+            </form>
+            <br />
+        </div>
+    </div>
+
+    <div class="transfer-wallet">
+        <button onclick="transferWalletFunction()" class="wallet-button">
+            <img src="~/images/transfer-wallet.png" />
+            <h3>transfer to wallet</h3>
+        </button>
+        
+        <div id="transferWallet" style="display: none">
+            <h3 class="activity-text">transfer wallet</h3>
+
+            <form style="width: 202.8px;">
+
+                <div id="upi-id">
+                    <input type="email" placeholder="upi id" name="upi" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                </div>
+
+                <br />
+
+                <div id="upi-amount" >
+                    <input type="text" placeholder="₹ xxxx.xx" name="amount" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                </div>
+
+                <br />
+
+                <div id="remarks">
+                    <input type="text" placeholder="remarks" name="remarks" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                </div>
+
+                <br />
+
+                <div id="net-bank-pay">
+                    <button value="submit" role="button" style=" font-weight: 700; font-size: 1.2rem; background: linear-gradient(136.24deg, #0A0A0A -25.7%, #675515 22.02%, #9E7E0E 48.35%, #675515 79.56%, #1E1E1E 121.6%); border: none; padding: 10px; width: -webkit-fill-available; border-radius: 10px; color: #f0f0f0;">pay</button>
+                </div>
+
+            </form>
+
+            <br />
+
+        </div>
+
+    </div>
+
+
+
+
+    <div class="pay-bills">
+        <button onclick="payBillsFunction()" class="wallet-button">
+            <img src="~/images/pay-bills.png" />
+            <h3>pay bills</h3>
+        </button>
+
+        <div class="drop-down" id="pay-bills" style="display: none">
+            
+            <h3 class="activity-text">pay bills</h3>
+
+            <form>
+                <h5 for="select-service">select service</h5>
+                <select name="services" id="services" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;">
+                    <option value="broadband">broadband</option>
+                    <option value="dth">dth</option>
+                    <option value="mobile">mobile</option>
+                    <option value="electricity">electricity</option>
+                </select>
+
+                <br /> <br />
+
+                <div id="select-service-pay">
+                    <button value="submit" role="button" style=" font-weight: 700; font-size: 1.2rem; background: linear-gradient(136.24deg, #0A0A0A -25.7%, #675515 22.02%, #9E7E0E 48.35%, #675515 79.56%, #1E1E1E 121.6%); border: none; padding: 10px; width: -webkit-fill-available; border-radius: 10px; color: #f0f0f0;">pay</button>
+                </div>
+            </form>
+            <br />
+        </div>
+        
+
+    </div>
+
+
+
+
+
+
+
+
+    <div class="transfer-bank">
+        <button onclick="transferBankFunction()" class="wallet-button">
+            <img src="~/images/transfer-bank.png" />
+            <h3>transfer to bank</h3>
+        </button>
+
+        <div id="transferBank" style="display: none">
+            <h3 class="activity-text">transfer to bank</h3>
+
+            <form style="width: 202.8px;">
+
+                <div id="account-no">
+                    <input type="text" placeholder="a/c no" name="account-no" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                </div>
+
+                <br />
+
+                <div id="account-holder-name">
+                    <input type="text" placeholder="a/c holder name" name="account-holder-name" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                </div>
+
+                <br />
+
+                <div id="ifsc-code">
+                    <input type="text" placeholder="ifsc code" name="ifsc-code" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                </div>
+
+                <br />
+
+                <div id="transfer-bank-amount">
+                    <input type="text" placeholder="₹ xxxx.xx" name="amount" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                </div>
+
+                <br />
+
+                <div id="net-bank-pay">
+                    <button value="submit" role="button" style=" font-weight: 700; font-size: 1.2rem; background: linear-gradient(136.24deg, #0A0A0A -25.7%, #675515 22.02%, #9E7E0E 48.35%, #675515 79.56%, #1E1E1E 121.6%); border: none; padding: 10px; width: -webkit-fill-available; border-radius: 10px; color: #f0f0f0;">pay</button>
+                </div>
+
+            </form>
+
+            <br />
+
+        </div>
+
+    </div>
+
+
+
+
+    <div class="transactions">
+        <button onclick="transactionsFunction()" class="wallet-button">
+            <img src="~/images/transaction.png" />
+            <h3>view transactions</h3>
+        </button>
+
+        <div id="transactions" style="display: none">
+            <h3 class="activity-text">recent transactions</h3>
+        </div>    
+
+    </div>
+
+
+
+
+    <div class="redeem-points">
+        <button onclick="redeemFunction()" class="wallet-button">
+            <img src="~/images/points.png" />
+            <h3>redeem points</h3>
+        </button>
+
+        <div id="redeem" style="display: none">
+            <h3>your current points are low. you can redeem them.</h3>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelector(".nav-links");
+    const links = document.querySelectorAll(".nav-links li");
+
+    hamburger.addEventListener('click', () => {
+        //Animate Links
+        navLinks.classList.toggle("open");
+        links.forEach(link => {
+            link.classList.toggle("fade");
+        });
+
+        //Hamburger Animation
+        hamburger.classList.toggle("toggle");
+    });
+
+
+    function loadWalletFunction() {
+        var x = document.getElementById("loadWallet");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    function transferWalletFunction() {
+        var x = document.getElementById("transferWallet");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    function payBillsFunction() {
+        var x = document.getElementById("pay-bills");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    function transferBankFunction() {
+        var x = document.getElementById("transferBank");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    function transactionsFunction() {
+        var x = document.getElementById("transactions");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    function redeemFunction() {
+        var x = document.getElementById("redeem");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+
+    function showHideWallet() {
+        var chkCard = document.getElementById("credit-card");
+        var cardNumber = document.getElementById("cardNumber");
+        cardNumber.style.display = chkCard.checked ? "block" : "none";
+        var expiry = document.getElementById("expiry");
+        expiry.style.display = chkCard.checked ? "block" : "none";
+        var cvv = document.getElementById("cvv");
+        cvv.style.display = chkCard.checked ? "block" : "none";
+        var amount = document.getElementById("amount");
+        amount.style.display = chkCard.checked ? "block" : "none";
+        var pay = document.getElementById("pay");
+        pay.style.display = chkCard.checked ? "block" : "none";
+
+
+        var chkNetBank = document.getElementById("net-bank");
+        var netBankText = document.getElementById("bank-image");
+        netBankText.style.display = chkNetBank.checked ? "block" : "none";
+        var netBankText = document.getElementById("net-bank-text");
+        netBankText.style.display = chkNetBank.checked ? "block" : "none";
+        var netBankEmail = document.getElementById("net-bank-email");
+        netBankEmail.style.display = chkNetBank.checked ? "block" : "none";
+        var netBankPassword = document.getElementById("net-bank-password");
+        netBankPassword.style.display = chkNetBank.checked ? "block" : "none";
+        var netBankAmount = document.getElementById("net-bank-amount");
+        netBankAmount.style.display = chkNetBank.checked ? "block" : "none";
+        var netBankPay = document.getElementById("net-bank-pay");
+        netBankPay.style.display = chkNetBank.checked ? "block" : "none";
+
+        
+    }
+
+    $(function () {
+        $("input[name='cardNumber']").on('input', function (e) {
+            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        });
+    });
+    $(function () {
+        $("input[name='cvv']").on('input', function (e) {
+            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        });
+    });
+    $(function () {
+        $("input[name='amount']").on('input', function (e) {
+            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        });
+    });
+
+
+
+    /*----------------PAY BILLS----------------*/
+
+    
+
+
+</script>

@@ -1,8 +1,88 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="nav">
+    <div class="logo">
+        <img src="./images/waltera.svg" alt="ealtera">
+    </div>
+    <div class="hamburger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+    </div>
+    <ul class="nav-links">
+        <li><a asp-controller="Home" asp-action="Login">login | register</a></li>
+    </ul>
 </div>
+
+
+<div class="about">
+    <h1>rewards for paying credit card bills.</h1>
+    <p>join other members who win rewards and cashbacks everyday</p>
+</div>
+
+
+<div class="partners">
+    <h3>our payment partners</h3>
+    <div class="image-mosaic">
+        <div class="card">
+            <img src="~/images/payment-pay-u.png" style="transform: scale(0.4)" />
+        </div>
+        <div class="card">
+            <img src="./images/payment-rupay.png" style="transform: scale(0.4)" />
+        </div>
+        <div class="card">
+            <img src="./images/payment-amazon.png" style="transform: scale(0.4)" />
+        </div>
+        <div class="card">
+            <img src="./images/payment-mastercard.png" style="transform: scale(0.4)" />
+        </div>
+        <div class="card">
+            <img src="./images/payment-visa.png" style="transform: scale(0.4)" />
+        </div>
+        <div class="card">
+            <img src="./images/payment-apple-pay.png" style="transform: scale(0.4)" />
+        </div>
+        <div class="card">
+            <img src="./images/payment-google-pay.png" style="transform: scale(0.4)" />
+        </div>
+        <div class="card">
+            <img src="./images/payment-stripe.png" style="transform: scale(0.4)" />
+        </div>
+        <div class="card">
+            <img src="./images/payment-paypal.png" style="transform: scale(0.4)" />
+        </div>
+        <div class="card">
+            <img src="./images/payment-bitcoin.png" style="transform: scale(0.4)" />
+        </div>
+        <div class="card">
+            <img src="./images/payment-paytm.png" style="transform: scale(0.4)" />
+        </div>
+        <div class="card">
+            <img src="./images/payment-amex.png" style="transform: scale(0.4)" />
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelector(".nav-links");
+    const links = document.querySelectorAll(".nav-links li");
+
+    hamburger.addEventListener('click', () => {
+        //Animate Links
+        navLinks.classList.toggle("open");
+        links.forEach(link => {
+            link.classList.toggle("fade");
+        });
+
+        //Hamburger Animation
+        hamburger.classList.toggle("toggle");
+    });
+</script>
