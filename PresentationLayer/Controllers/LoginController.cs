@@ -3,6 +3,7 @@ using DataAccessLayer.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections;
 
 namespace PresentationLayer.Controllers
 {
@@ -26,28 +27,35 @@ namespace PresentationLayer.Controllers
             return View();
         }
 
-        //public IActionResult CheckRole(IFormCollection frm)
-        //{
-        //    string emailId = frm["emailId"];
-        //    string password = frm["password"];
-        //    string userName = _loginServices.GetUserByUserName(emailId);
-        //    try
-        //    {
-        //        bool status = _loginServices.VerifyUser(emailId, password);
-        //        if (status)
-        //        {
-        //            HttpContext.Session.SetString("userName", userName);
-        //            HttpContext.Session.SetString("userEmail", emailId);
-        //            return RedirectToAction("LoginHome", "Login");
-        //        }
-        //        else
-        //            View("Error");
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //    return View("LoginHome");
-        //}
+        public IActionResult AddCardMoney(IFormCollection frm)
+        {
+            if(ModelState.IsValid)
+            {
+                string cardNumber = frm["cardNumber"];
+                DateTime expiry = Convert.ToDateTime(frm["expiry"]);
+                int cvv = Convert.ToInt32(frm["cvv"]);
+                decimal amount = Convert.ToInt64(frm["amount"]);
+                string emailId = HttpContext.Session.GetString("userEmail");
+                bool status = false;
+                ArrayList message = _walletServices.AddMoneyUsingCard(cardNumber, emailId, cvv, expiry, amount, ref status);
+                try
+                {
+                    if(status)
+                    {
+                        return RedirectToAction("LoginHome", "Login");
+                    }
+                    else
+                    {
+                        View("Shared", "_ErrorLayout");
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+            return View("LoginHome");
+        }
     }
 }

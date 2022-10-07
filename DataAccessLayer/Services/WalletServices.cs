@@ -33,9 +33,9 @@ namespace DataAccessLayer.Services
             return amount;
         }
 
-        public ArrayList AddMoneyUsingCard(string cardNumber, string emailId, int cvv, DateTime expiryDate, decimal amount)
+        public ArrayList AddMoneyUsingCard(string cardNumber, string emailId, int cvv, DateTime expiryDate, decimal amount, ref bool status)
         {
-            bool status = false;
+            status = false;
             string message = null;
             var arrayList = new ArrayList();
             try

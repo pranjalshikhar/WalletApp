@@ -38,11 +38,6 @@ namespace PresentationLayer.Controllers
             return View();
         }
 
-        public IActionResult Register()
-        {
-            return View();
-        }
-
         public IActionResult CheckRole(IFormCollection frm)
         {
             string emailId = frm["emailId"];
@@ -65,6 +60,38 @@ namespace PresentationLayer.Controllers
                 throw;
             }
             return View("Error");
+        }
+
+        public IActionResult SaveRegister(IFormCollection frm)
+        {
+            if (ModelState.IsValid)
+            {
+                string emailId = frm["emailId"];
+                string password = frm["password"];
+                string number = frm["number"];
+                string userName = frm["userName"];
+
+                bool returnValue = _loginServices.RegisterUser(userName, emailId, number, password);
+
+                try
+                {
+                    if (returnValue)
+                    {
+                        HttpContext.Session.SetString("userName", userName);
+                        HttpContext.Session.SetString("emailId", emailId);
+                        return RedirectToAction("LoginHome", "Login");
+                    }
+                    else
+                    {
+                        View("Shared", "_ErrorLayout");
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            return View("LoginHome");
         }
     }
 }
