@@ -92,9 +92,31 @@ namespace ServiceLayer.Controllers
             var arrayList = new ArrayList();
             try
             {
-                arrayList = _walletServices.AddMoneyUsingCard(cardNumber, emailId, cvv, expiryDate, amount);
+                arrayList = _walletServices.AddMoneyUsingCard(cardNumber, emailId, cvv, expiryDate, amount, ref status);
                 if (Convert.ToBoolean(arrayList[0]) == true && Convert.ToString(arrayList[1]) == "Success")
                     message = "Money added to Wallet using Card.";
+                else
+                    message = Convert.ToString(arrayList[1]);
+            }
+            catch (Exception)
+            {
+                message = "Exception Caught.";
+                throw;
+            }
+            return Json(message);
+        }
+
+        [HttpPost]
+        public JsonResult AddMoneyUsingBank(string emailId, string password, decimal amount)
+        {
+            bool status = false;
+            string message = null;
+            var arrayList = new ArrayList();
+            try
+            {
+                arrayList = _walletServices.AddMoneyUsingBank(emailId, password, amount, ref status);
+                if (Convert.ToBoolean(arrayList[0]) == true && Convert.ToString(arrayList[1]) == "Success")
+                    message = "Money added to Wallet using NetBank.";
                 else
                     message = Convert.ToString(arrayList[1]);
             }

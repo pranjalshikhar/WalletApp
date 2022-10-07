@@ -57,5 +57,34 @@ namespace PresentationLayer.Controllers
             }
             return View("LoginHome");
         }
+
+        public IActionResult AddBankMoney(IFormCollection frm)
+        {
+            if (ModelState.IsValid)
+            {
+                string emailId = HttpContext.Session.GetString("userEmail");
+                string password = HttpContext.Session.GetString("userPassword");
+                decimal amount = Convert.ToInt64(frm["net-bank-amount"]);
+                bool status = false;
+                ArrayList message = _walletServices.AddMoneyUsingBank(emailId, password, amount, ref status);
+                try
+                {
+                    if (status)
+                    {
+                        return RedirectToAction("LoginHome", "Login");
+                    }
+                    else
+                    {
+                        View("Shared", "_ErrorLayout");
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+            return View("LoginHome");
+        }
     }
 }
