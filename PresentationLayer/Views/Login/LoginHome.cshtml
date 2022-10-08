@@ -122,7 +122,7 @@
                 <br />
 
                 <div id="net-bank-amount" style="display: none">
-                    <input type="text" placeholder="₹ xxxx.xx" name="net-bank-amount" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                    <input type="text" placeholder="₹ xxxx.xx" name="amount" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
                 </div>
 
                 <br />
@@ -136,6 +136,7 @@
         </div>
     </div>
 
+
     <div class="transfer-wallet">
         <button onclick="transferWalletFunction()" class="wallet-button">
             <img src="~/images/transfer-wallet.png" />
@@ -145,7 +146,7 @@
         <div id="transferWallet" style="display: none">
             <h3 class="activity-text">transfer wallet</h3>
 
-            <form style="width: 202.8px;">
+            <form asp-action="TransferToWallet" style="width: 202.8px;">
 
                 <div id="upi-id">
                     <input type="email" placeholder="upi id" name="upi" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
@@ -176,8 +177,6 @@
         </div>
 
     </div>
-
-
 
 
     <div class="pay-bills">
@@ -212,12 +211,6 @@
     </div>
 
 
-
-
-
-
-
-
     <div class="transfer-bank">
         <button onclick="transferBankFunction()" class="wallet-button">
             <img src="~/images/transfer-bank.png" />
@@ -227,7 +220,7 @@
         <div id="transferBank" style="display: none">
             <h3 class="activity-text">transfer to bank</h3>
 
-            <form style="width: 202.8px;">
+            <form asp-action="TransferToBank" style="width: 202.8px;">
 
                 <div id="account-no">
                     <input type="text" placeholder="a/c no" name="account-no" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
@@ -266,8 +259,6 @@
     </div>
 
 
-
-
     <div class="transactions">
         <button onclick="transactionsFunction()" class="wallet-button">
             <img src="~/images/transaction.png" />
@@ -279,8 +270,6 @@
         </div>    
 
     </div>
-
-
 
 
     <div class="redeem-points">
