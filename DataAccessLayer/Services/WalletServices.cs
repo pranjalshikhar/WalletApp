@@ -24,10 +24,13 @@ namespace DataAccessLayer.Services
                 var addedMoney = (from u in _walletAppContext.UserTransaction
                                   where u.EmailId == emailId && u.PaymentTypeId == 3
                                   select u.Amount).Sum();
-                var spentMoney = (from u in _walletAppContext.UserTransaction
+                var sendMoneyToWallet = (from u in _walletAppContext.UserTransaction
                                   where u.EmailId == emailId && u.PaymentTypeId == 2
                                   select u.Amount).Sum();
-                amount = Math.Abs(addedMoney - spentMoney);
+                var sendMoneyToBank = (from u in _walletAppContext.UserTransaction
+                                       where u.EmailId == emailId && u.PaymentTypeId == 4
+                                       select u.Amount).Sum();
+                amount = Math.Abs(addedMoney - (sendMoneyToWallet + sendMoneyToBank));
                 amount = Math.Round(amount, 2);
             }
             catch (Exception)
@@ -96,7 +99,7 @@ namespace DataAccessLayer.Services
                                         userTransaction.EmailId = emailId;
                                         userTransaction.Amount = amount;
                                         userTransaction.PaymentTypeId = 3;
-                                        userTransaction.Info = "Money Added to Wallet using Card";
+                                        userTransaction.Info = "Money Added to Wallet using Card.";
                                         userTransaction.StatusId = 1;
                                         userTransaction.IsRedeemed = false;
                                         var result = (from u in _walletAppContext.UserTransaction
@@ -110,7 +113,7 @@ namespace DataAccessLayer.Services
                                             _walletAppContext.SaveChanges();
                                             walletAppContext.Commit();
                                             status = true;
-                                            message = "Success";
+                                            message = "Success.";
                                             arrayList.Add(status);
                                             arrayList.Add(message);
                                         }
@@ -128,7 +131,7 @@ namespace DataAccessLayer.Services
                             else
                             {
                                 status = false;
-                                message = "Amount should be greater than 0";
+                                message = "Amount should be greater than 0.";
                                 arrayList.Add(status);
                                 arrayList.Add(message);
                             }
@@ -137,7 +140,7 @@ namespace DataAccessLayer.Services
                         else
                         {
                             status = false;
-                            message = "Incorrect Expiry Date";
+                            message = "Incorrect Expiry Date.";
                             arrayList.Add(status);
                             arrayList.Add(message);
                         }
@@ -145,7 +148,7 @@ namespace DataAccessLayer.Services
                     else
                     {
                         status = false;
-                        message = "Incorrect CVV";
+                        message = "Incorrect CVV.";
                         arrayList.Add(status);
                         arrayList.Add(message);
                     }
@@ -153,7 +156,7 @@ namespace DataAccessLayer.Services
                 else
                 {
                     status = false;
-                    message = "Incorrect Card Number";
+                    message = "Incorrect Card Number.";
                     arrayList.Add(status);
                     arrayList.Add(message);
                 }
@@ -161,7 +164,7 @@ namespace DataAccessLayer.Services
             catch (Exception)
             {
                 status = false;
-                message = "Invalid Credentials";
+                message = "Invalid Credentials.";
                 arrayList.Add(status);
                 arrayList.Add(message);
                 throw;
@@ -189,7 +192,7 @@ namespace DataAccessLayer.Services
                                 userTransaction.EmailId = emailId;
                                 userTransaction.Amount = amount;
                                 userTransaction.PaymentTypeId = 3;
-                                userTransaction.Info = "Money Added to Wallet using NetBank";
+                                userTransaction.Info = "Money Added to Wallet using NetBank.";
                                 userTransaction.StatusId = 1;
                                 userTransaction.IsRedeemed = false;
                                 var result = (from u in _walletAppContext.UserTransaction
@@ -221,7 +224,7 @@ namespace DataAccessLayer.Services
                     else
                     {
                         status = false;
-                        message = "Amount should be greater than 0";
+                        message = "Amount should be greater than 0.";
                         arrayList.Add(status);
                         arrayList.Add(message);
                     }
@@ -238,7 +241,7 @@ namespace DataAccessLayer.Services
             catch (Exception)
             {
                 status = false;
-                message = "Invalid Credentials";
+                message = "Invalid Credentials.";
                 arrayList.Add(status);
                 arrayList.Add(message);
                 throw;
@@ -261,49 +264,187 @@ namespace DataAccessLayer.Services
                 {
                     if(amount > 0)
                     {
-                        using (var walletAppContext = _walletAppContext.Database.BeginTransaction())
+                        if(amount < ViewBalance(emailId))
                         {
-                            try
+                            using (var walletAppContext = _walletAppContext.Database.BeginTransaction())
                             {
-                                UserTransaction userTransaction = new UserTransaction();
-                                userTransaction.EmailId = emailId;
-                                userTransaction.Amount = amount;
-                                userTransaction.PaymentTypeId = 2;
-                                userTransaction.Remarks = remarks;
-                                userTransaction.Info = "Money transferred to " + upi;
-                                userTransaction.StatusId = 1;
-                                userTransaction.IsRedeemed = false;
-                                var result = (from u in _walletAppContext.UserTransaction
-                                              where u.EmailId == emailId
-                                              select u.UserTransactionId);
-                                if (result == null)
-                                    _walletAppContext.UserTransaction.Add(userTransaction);
-                                else
+                                try
                                 {
-                                    _walletAppContext.UserTransaction.Update(userTransaction);
-                                    _walletAppContext.SaveChanges();
-                                    walletAppContext.Commit();
-                                    status = true;
-                                    message = "Success";
+                                    UserTransaction userTransaction = new UserTransaction();
+                                    userTransaction.EmailId = emailId;
+                                    userTransaction.Amount = amount;
+                                    userTransaction.PaymentTypeId = 2;
+                                    userTransaction.Remarks = remarks;
+                                    userTransaction.Info = "Money transferred to " + upi;
+                                    userTransaction.StatusId = 1;
+                                    userTransaction.IsRedeemed = false;
+                                    var result = (from u in _walletAppContext.UserTransaction
+                                                  where u.EmailId == emailId
+                                                  select u.UserTransactionId);
+                                    if (result == null)
+                                        _walletAppContext.UserTransaction.Add(userTransaction);
+                                    else
+                                    {
+                                        _walletAppContext.UserTransaction.Update(userTransaction);
+                                        _walletAppContext.SaveChanges();
+                                        walletAppContext.Commit();
+                                        status = true;
+                                        message = "Success";
+                                        arrayList.Add(status);
+                                        arrayList.Add(message);
+                                    }
+                                }
+                                catch (Exception)
+                                {
+                                    walletAppContext.Rollback();
+                                    status = false;
                                     arrayList.Add(status);
                                     arrayList.Add(message);
+                                    throw;
                                 }
                             }
-                            catch (Exception)
-                            {
-                                walletAppContext.Rollback();
-                                status = false;
-                                arrayList.Add(status);
-                                arrayList.Add(message);
-                                throw;
-                            }
+                        }
+                        else
+                        {
+                            status = false;
+                            message = "Insufficient Wallet Money.";
+                            arrayList.Add(status);
+                            arrayList.Add(message);
                         }
                     }
+                    else
+                    {
+                        status = false;
+                        message = "Amount should be greater than 0.";
+                        arrayList.Add(status);
+                        arrayList.Add(message);
+                    }
+                }
+                else
+                {
+                    status = false;
+                    message = "Invalid Credentials.";
+                    arrayList.Add(status);
+                    arrayList.Add(message);
                 }
             }
             catch (Exception)
             {
+                status = false;
+                message = "Invalid Credentials.";
+                arrayList.Add(status);
+                arrayList.Add(message);
+                throw;
+            }
 
+            return arrayList;
+        }
+
+
+        public ArrayList TransferToBank(string accountNo, string accountName, string ifsc, decimal amount, string emailId)
+        {
+            bool status = false;
+            string message = null;
+            var arrayList = new ArrayList();
+            string accountNoRegex = @"^\d{9,18}$";
+            string ifscRegex = @"^[A-Za-z]{4}[a-zA-Z0-9]{7}$";
+
+            try
+            {
+                if (!string.IsNullOrEmpty(accountNo) && Regex.IsMatch(accountNo, accountNoRegex))
+                {
+                    if(!string.IsNullOrEmpty(accountName))
+                    {
+                        if(!string.IsNullOrEmpty(ifsc) && Regex.IsMatch(ifsc, ifscRegex))
+                        {
+                            if (amount > 0)
+                            {
+                                if(amount < ViewBalance(emailId)) 
+                                {
+                                    using (var walletAppContext = _walletAppContext.Database.BeginTransaction())
+                                    {
+                                        try
+                                        {
+                                            UserTransaction userTransaction = new UserTransaction();
+                                            userTransaction.EmailId = emailId;
+                                            userTransaction.Amount = amount;
+                                            userTransaction.PaymentTypeId = 4;
+                                            userTransaction.Remarks = "A/C No: " + accountNo + " IFSC: " + ifsc;
+                                            userTransaction.Info = "Money transferred to " + accountName;
+                                            userTransaction.StatusId = 1;
+                                            userTransaction.IsRedeemed = false;
+                                            var result = (from u in _walletAppContext.UserTransaction
+                                                          where u.EmailId == emailId
+                                                          select u.UserTransactionId);
+                                            if (result == null)
+                                                _walletAppContext.UserTransaction.Add(userTransaction);
+                                            else
+                                            {
+                                                _walletAppContext.UserTransaction.Update(userTransaction);
+                                                _walletAppContext.SaveChanges();
+                                                walletAppContext.Commit();
+                                                status = true;
+                                                message = "Success";
+                                                arrayList.Add(status);
+                                                arrayList.Add(message);
+                                            }
+                                        }
+                                        catch (Exception)
+                                        {
+                                            walletAppContext.Rollback();
+                                            status = false;
+                                            arrayList.Add(status);
+                                            arrayList.Add(message);
+                                            throw;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    status = false;
+                                    message = "Insufficient Wallet Money.";
+                                    arrayList.Add(status);
+                                    arrayList.Add(message);
+                                }
+                            }
+                            else
+                            {
+                                status = false;
+                                message = "Amount should be greater than 0.";
+                                arrayList.Add(status);
+                                arrayList.Add(message);
+                            }
+                        }
+                        else
+                        {
+                            status = false;
+                            message = "Invalid IFSC Code.";
+                            arrayList.Add(status);
+                            arrayList.Add(message);
+                        }
+                    }
+                    else
+                    {
+                        status = false;
+                        message = "Incorrect Account Name.";
+                        arrayList.Add(status);
+                        arrayList.Add(message);
+                    }
+                }
+                else
+                {
+                    status = false;
+                    message = "Incorrect Account Number.";
+                    arrayList.Add(status);
+                    arrayList.Add(message);
+                }
+            }
+            catch (Exception)
+            {
+                status = false;
+                message = "Invalid Credentials";
+                arrayList.Add(status);
+                arrayList.Add(message);
                 throw;
             }
 

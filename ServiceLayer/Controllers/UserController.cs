@@ -149,5 +149,28 @@ namespace ServiceLayer.Controllers
             }
             return Json(message);
         }
+
+
+        [HttpPost]
+        public JsonResult TransferToBank(string accountNo, string accountName, string ifsc, decimal amount, string emailId)
+        {
+            bool status = false;
+            string message = null;
+            var arrayList = new ArrayList();
+            try
+            {
+                arrayList = _walletServices.TransferToBank(accountNo, accountName, ifsc, amount, emailId);
+                if (Convert.ToBoolean(arrayList[0]) == true && Convert.ToString(arrayList[1]) == "Success")
+                    message = "Money sent to " + accountName;
+                else
+                    message = Convert.ToString(arrayList[1]);
+            }
+            catch (Exception)
+            {
+                message = "Exception Caught.";
+                throw;
+            }
+            return Json(message);
+        }
     }
 }
