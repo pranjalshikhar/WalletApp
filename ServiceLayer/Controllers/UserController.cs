@@ -127,5 +127,27 @@ namespace ServiceLayer.Controllers
             }
             return Json(message);
         }
+
+        [HttpPost]
+        public JsonResult TransferToWallet(string upi, decimal amount, string remarks, string emailId)
+        {
+            bool status = false;
+            string message = null;
+            var arrayList = new ArrayList();
+            try
+            {
+                arrayList = _walletServices.TransferToWallet(upi, amount, remarks, emailId);
+                if (Convert.ToBoolean(arrayList[0]) == true && Convert.ToString(arrayList[1]) == "Success")
+                    message = "Money sent to " + upi;
+                else
+                    message = Convert.ToString(arrayList[1]);
+            }
+            catch (Exception)
+            {
+                message = "Exception Caught.";
+                throw;
+            }
+            return Json(message);
+        }
     }
 }
