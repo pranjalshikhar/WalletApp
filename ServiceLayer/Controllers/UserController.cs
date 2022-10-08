@@ -172,5 +172,23 @@ namespace ServiceLayer.Controllers
             }
             return Json(message);
         }
+
+
+        [HttpGet]
+        public JsonResult ViewTransactions(string emailId)
+        {
+            var arrayList = new ArrayList();
+            try
+            {
+                arrayList = _walletServices.ViewTransactions(emailId);
+            }
+            catch (Exception)
+            {
+                arrayList.Add("Exception Caught.");
+                throw;
+            }
+
+            return Json(arrayList);
+        }
     }
 }

@@ -8,18 +8,41 @@ namespace TestingLayer
     {
         static void Main(string[] args)
         {
-            //var list = new ArrayList();
-            //list.Add(true);
-            //list.Add("Success");
+            var date = new ArrayList();
+            date.Add("11-11-2022");
+            date.Add("05-06-2025");
 
-            //var status = list[0];
-            //var message = list[1];
-            //Console.WriteLine(status);
-            //Console.WriteLine(message);
+            var amount = new ArrayList();
+            amount.Add("50");
+            amount.Add("20");
 
-            //decimal amount = 150;
-            //decimal result = Math.Abs(amount) * (-1);
-            //Console.WriteLine(result);
+            var info = new ArrayList();
+            info.Add("wallet");
+            info.Add("bank");
+
+            var remark = new ArrayList();
+            remark.Add(null);
+            remark.Add("upi");
+
+            var result = new ArrayList();
+            result.Add(date);
+            result.Add(amount);
+            result.Add(info);
+            result.Add(remark);
+
+            int counter = 0;
+            foreach(var x in result)
+            {
+                counter++;
+            }
+            //Console.WriteLine(counter);
+            for(int i=0; i<counter; i++)
+            {
+                for(int j=0; j<i; j++)
+                {
+                    Console.WriteLine(result[j]);
+                }
+            }
         }
     }
 }

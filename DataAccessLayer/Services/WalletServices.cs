@@ -450,5 +450,53 @@ namespace DataAccessLayer.Services
 
             return arrayList;
         }
+
+
+        public ArrayList ViewTransactions(string emailId)
+        {
+            var transactionDateList = new ArrayList();
+            var transactionAmountList = new ArrayList();
+            var transactionInfoList = new ArrayList();
+            var transactionRemarksList = new ArrayList();
+            var transactionResultList = new ArrayList();
+            try
+            {
+                var transaction = from user in _walletAppContext.UserTransaction
+                                  where user.EmailId == emailId
+                                  select new { user.TransactionDateTime, user.Amount, user.Info, user.Remarks };
+                transactionResultList.Add(transaction);
+
+                //var transactionDate = (from u in _walletAppContext.UserTransaction
+                //                       where u.EmailId == emailId
+                //                       select u.TransactionDateTime);
+                //transactionDateList.Add(transactionDate);
+
+                //var transactionAmount = (from u in _walletAppContext.UserTransaction
+                //                         where u.EmailId == emailId
+                //                         select u.Amount);
+                //transactionAmountList.Add(transactionAmount);
+
+                //var transactionInfo = (from u in _walletAppContext.UserTransaction
+                //                       where u.EmailId == emailId
+                //                       select u.Info);
+                //transactionInfoList.Add(transactionInfo);
+
+                //var transactionRemarks = (from u in _walletAppContext.UserTransaction
+                //                          where u.EmailId == emailId
+                //                          select u.Remarks);
+                //transactionRemarksList.Add(transactionRemarks);
+
+                //transactionResultList.Add(transactionDateList);
+                //transactionResultList.Add(transactionAmount);
+                //transactionResultList.Add(transactionInfo);
+                //transactionResultList.Add(transactionRemarksList);
+            }
+            catch (Exception)
+            {
+                transactionResultList.Add(-1);
+                throw;
+            }
+            return transactionResultList;
+        }
     }
 }
