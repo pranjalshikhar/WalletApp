@@ -1,0 +1,14 @@
+C:\Users\shikh\Documents\GitHub\WalletApp\DataAccessLayer\bin\Release\netcoreapp3.1\appsettings.json
+C:\Users\shikh\Documents\GitHub\WalletApp\DataAccessLayer\bin\Release\netcoreapp3.1\DataAccessLayer.deps.json
+C:\Users\shikh\Documents\GitHub\WalletApp\DataAccessLayer\bin\Release\netcoreapp3.1\DataAccessLayer.runtimeconfig.json
+C:\Users\shikh\Documents\GitHub\WalletApp\DataAccessLayer\bin\Release\netcoreapp3.1\DataAccessLayer.runtimeconfig.dev.json
+C:\Users\shikh\Documents\GitHub\WalletApp\DataAccessLayer\bin\Release\netcoreapp3.1\DataAccessLayer.dll
+C:\Users\shikh\Documents\GitHub\WalletApp\DataAccessLayer\bin\Release\netcoreapp3.1\DataAccessLayer.pdb
+C:\Users\shikh\Documents\GitHub\WalletApp\DataAccessLayer\obj\Release\netcoreapp3.1\DataAccessLayer.csproj.AssemblyReference.cache
+C:\Users\shikh\Documents\GitHub\WalletApp\DataAccessLayer\obj\Release\netcoreapp3.1\DataAccessLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\shikh\Documents\GitHub\WalletApp\DataAccessLayer\obj\Release\netcoreapp3.1\DataAccessLayer.AssemblyInfoInputs.cache
+C:\Users\shikh\Documents\GitHub\WalletApp\DataAccessLayer\obj\Release\netcoreapp3.1\DataAccessLayer.AssemblyInfo.cs
+C:\Users\shikh\Documents\GitHub\WalletApp\DataAccessLayer\obj\Release\netcoreapp3.1\DataAccessLayer.csproj.CoreCompileInputs.cache
+C:\Users\shikh\Documents\GitHub\WalletApp\DataAccessLayer\obj\Release\netcoreapp3.1\DataAccessLayer.dll
+C:\Users\shikh\Documents\GitHub\WalletApp\DataAccessLayer\obj\Release\netcoreapp3.1\DataAccessLayer.pdb
+C:\Users\shikh\Documents\GitHub\WalletApp\DataAccessLayer\obj\Release\netcoreapp3.1\DataAccessLayer.genruntimeconfig.cache

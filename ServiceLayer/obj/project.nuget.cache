@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Vi5vi7OHDuWuIAQiwSA0J8ilP4NCHe5NZguPWDH4tbH2laelHwxvhjfoH2wbJsLYEti7XGE6dAkdPxUXytS8aA==",
+  "dgSpecHash": "Bqwe+WS4LPnnK+cCzWnx/reVFgtyyvq0wHMfut6N/KQZXu4MsMfY3S3C8UUbkKSzzYl578nQ6hFMDWKhtBpG0A==",
   "success": true,
   "projectFilePath": "C:\\Users\\shikh\\Documents\\GitHub\\WalletApp\\ServiceLayer\\ServiceLayer.csproj",
   "expectedPackageFiles": [
@@ -94,11 +94,7 @@
     "C:\\Users\\shikh\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\shikh\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\shikh\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\shikh\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
-    "C:\\Users\\shikh\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.29\\microsoft.netcore.app.host.win-x64.3.1.29.nupkg.sha512",
-    "C:\\Users\\shikh\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
-    "C:\\Users\\shikh\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.1.0\\microsoft.windowsdesktop.app.ref.3.1.0.nupkg.sha512",
-    "C:\\Users\\shikh\\.nuget\\packages\\microsoft.netcore.app.ref\\3.1.0\\microsoft.netcore.app.ref.3.1.0.nupkg.sha512"
+    "C:\\Users\\shikh\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }
