@@ -39,5 +39,3 @@ C:\Users\shikh\Documents\GitHub\WalletApp\ServiceLayer\obj\Debug\netcoreapp3.1\S
 C:\Users\shikh\Documents\GitHub\WalletApp\ServiceLayer\obj\Debug\netcoreapp3.1\ServiceLayer.dll
 C:\Users\shikh\Documents\GitHub\WalletApp\ServiceLayer\obj\Debug\netcoreapp3.1\ServiceLayer.pdb
 C:\Users\shikh\Documents\GitHub\WalletApp\ServiceLayer\obj\Debug\netcoreapp3.1\ServiceLayer.genruntimeconfig.cache
-C:\Users\shikh\Documents\GitHub\WalletApp\ServiceLayer\obj\Debug\netcoreapp3.1\staticwebassets\ServiceLayer.StaticWebAssets.xml
-C:\Users\shikh\Documents\GitHub\WalletApp\ServiceLayer\obj\Debug\netcoreapp3.1\scopedcss\bundle\ServiceLayer.styles.css

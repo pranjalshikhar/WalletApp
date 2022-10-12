@@ -1,81 +1,81 @@
 ﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextaccessor
 
 @{
-    Layout = "~/Views/Shared/_Login.cshtml";
+	Layout = "~/Views/Shared/_Login.cshtml";
 }
 
 <section>
-    <div class="container">
-        <div class="user signinBx">
-            <div class="imgBx">
-            </div>
-            <div class="formBx">
-                <form asp-action="CheckRole">
-                    <a asp-controller="Home" asp-action="Index">
-                        <i class="fa-solid fa-house"></i>
-                    </a>
-                    <br />
-                    <h2>login</h2>
-                    <br />
-                    @{
-                        if (httpContextaccessor.HttpContext.Request.Cookies["UserId"] != null)
-                        {
-                            <input type="email" placeholder="naruto@konoha.com" name="emailId" , httpContextaccessor.HttpContext.Request.Cookies["UserId"] />
-                        }
-                        else
-                        {
-                            <input type="email" placeholder="naruto@konoha.com" name="emailId" />
-                        }
-                    }
-                    @{
-                        if (httpContextaccessor.HttpContext.Request.Cookies["Password"] != null)
-                        {
-                            <input type="password" placeholder="**********" name="password" , httpContextaccessor.HttpContext.Request.Cookies["Password"] />
-                        }
-                        else
-                        {
-                            <input type="password" placeholder="**********" name="password" />
-                        }
-                    }
-                    <input type="submit" class="submit" value="login" style="background: #DB1C51;">
-                    <p class="signup">
-                        Don't have an account ?
-                        <a href="#" onclick="toggleForm();">register.</a>
-                    </p>
-                </form>
-            </div>
-        </div>
-        <div class="user signupBx">
-            <div class="formBx">
-                <form asp-action="SaveRegister">
-                    <h2>register</h2>
-                    <br />
-                    <input type="text" placeholder="uzumaki naruto" name="userName" style="color: #6B46B7" />
-                    <input type="email" placeholder="naruto@konoha.com" name="emailId"  />
-                    <input type="text" placeholder="9874563210" name="number" maxlength="10" />
-                    <input type="password" placeholder="**********" name="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$" />
-                    <input type="submit" name="" value="register" style="background: #3E0BA7" />
-                    <p class="login">
-                        Already have an account ?
-                        <a href="#" onclick="toggleForm();">Login.</a>
-                    </p>
-                </form>
-            </div>
-            <div class="imgBox"></div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="user signinBx">
+			<div class="imgBx">
+			</div>
+			<div class="formBx">
+				<form asp-action="CheckRole">
+					<a asp-controller="Home" asp-action="Index">
+						<i class="fa-solid fa-house"></i>
+					</a>
+					<br />
+					<h2>login</h2>
+					<br />
+					@{
+						if (httpContextaccessor.HttpContext.Request.Cookies["UserId"] != null)
+						{
+							<input type="email" placeholder="naruto@konoha.com" name="emailId" required , httpContextaccessor.HttpContext.Request.Cookies["UserId"] />
+						}
+						else
+						{
+							<input type="email" placeholder="naruto@konoha.com" name="emailId" required />
+						}
+					}
+					@{
+						if (httpContextaccessor.HttpContext.Request.Cookies["Password"] != null)
+						{
+							<input type="password" placeholder="**********" name="password" required , httpContextaccessor.HttpContext.Request.Cookies["Password"] />
+						}
+						else
+						{
+							<input type="password" placeholder="**********" name="password" required />
+						}
+					}
+					<input type="submit" class="submit" value="login" style="background: #DB1C51;">
+					<p class="signup">
+						Don't have an account ?
+						<a href="#" onclick="toggleForm();">register.</a>
+					</p>
+				</form>
+			</div>
+		</div>
+		<div class="user signupBx">
+			<div class="formBx">
+				<form asp-action="SaveRegister">
+					<h2>register</h2>
+					<br />
+					<input type="text" placeholder="uzumaki naruto" name="userName" required style="color: #6B46B7" />
+					<input type="email" placeholder="naruto@konoha.com" name="emailId" required  />
+					<input type="text" placeholder="9874563210" name="number" maxlength="10" required />
+					<input type="password" placeholder="**********" name="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$" required />
+					<input type="submit" name="" value="register" style="background: #3E0BA7" />
+					<p class="login">
+						Already have an account ?
+						<a href="#" onclick="toggleForm();">Login.</a>
+					</p>
+				</form>
+			</div>
+			<div class="imgBox"></div>
+		</div>
+	</div>
 </section>
 
 
 <script>
-    const toggleForm = () => {
-        const container = document.querySelector('.container');
-        container.classList.toggle('active');
-    };
+	const toggleForm = () => {
+		const container = document.querySelector('.container');
+		container.classList.toggle('active');
+	};
 
-    $(function () {
-        $("input[name='number']").on('input', function (e) {
-            $(this).val($(this).val().replace(/[^0-9]/g, ''));
-        });
-    });
+	$(function () {
+		$("input[name='number']").on('input', function (e) {
+			$(this).val($(this).val().replace(/[^0-9]/g, ''));
+		});
+	});
 </script>

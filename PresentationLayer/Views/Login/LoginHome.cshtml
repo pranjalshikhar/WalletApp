@@ -1,11 +1,13 @@
 ﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextaccessor
 @using Microsoft.AspNetCore.Http
+@using DataAccessLayer.Models
 @{
     ViewData["Title"] = "LoginHome";
     Layout = "~/Views/Shared/_LoginHome.cshtml";
 }
 
 
+<!----NAVIGATION---->
 <div class="nav">
     <div class="hamburger">
         <div class="line1"></div>
@@ -15,7 +17,7 @@
     <ul class="nav-links">
         <li>
             <img src="~/images/password.png" />
-            <a href="#" >change password</a>
+            <a href="#">change password</a>
         </li>
         <li>
             <img src="~/images/logout.png" />
@@ -24,6 +26,8 @@
     </ul>
 </div>
 
+
+<!----ABOUT---->
 <div class="about">
     <div class="list">
         <img src="~/images/user.png" />
@@ -39,25 +43,33 @@
     </div>
 </div>
 
+
+<!----HR---->
 <div>
     <hr />
 </div>
 
 
+<!----WALLET---->
 <div class="wallet">
+
+    <!----LOAD WALLET---->
     <div class="load-wallet">
         <button onclick="loadWalletFunction()" class="wallet-button">
             <img src="~/images/load-wallet.png" />
             <h3>load wallet</h3>
         </button>
-        
+
         <div id="loadWallet" style="display: none">
             <h3 class="activity-text">load wallet</h3>
             <div>
+                <!----credit-radio---->
                 <label for="credit-card">
                     <input type="radio" id="credit-card" name="radio" onclick="showHideWallet()" value="card" />
                     card
                 </label>
+
+                <!----net-bank-radio---->
                 <label for="net-bank">
                     <input type="radio" id="net-bank" name="radio" onclick="showHideWallet()" value="net bank" />
                     net bank
@@ -65,36 +77,39 @@
             </div>
             <br />
 
-            <div id="bank-image" style="display: none;">
+            <!----net-bank-text---->
+            @*<div id="bank-image" style="display: none;">
                 <h2 style="text-transform: uppercase; background: linear-gradient(to right, #f32170, #ff6b08, #cf23cf, #eedd44); -webkit-text-fill-color: transparent; -webkit-background-clip: text;">edu bank</h2>
             </div>
 
             <div id="net-bank-text" style="display: none;">
                 <h4 style="text-align: center">internet payment banking</h4>
-            </div>
+            </div>*@
 
+
+            <!----add-card-money---->
             <form asp-action="AddCardMoney">
 
                 <div id="cardNumber" style="display: none">
-                    <input type="text" maxlength="16" placeholder="card number" name="cardNumber" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                    <input type="text" maxlength="16" placeholder="card number" name="cardNumber" required style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
                 </div>
 
                 <br />
 
                 <div class="date-cvv" style="display: flex; justify-content: space-between;">
                     <span id="expiry" style="display: none">
-                        <input type="date" placeholder="dd/mm/yyyy" name="expiry" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                        <input type="date" placeholder="dd/mm/yyyy" name="expiry" required style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
                     </span>
 
                     <span id="cvv" style="display: none">
-                        <input type="text" maxlength="3" placeholder="cvv" name="cvv" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0; width: 3ch;" />
+                        <input type="text" maxlength="3" placeholder="cvv" name="cvv" required style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0; width: 3ch;" />
                     </span>
                 </div>
 
                 <br />
 
                 <div id="amount" style="display: none">
-                    <input type="text" placeholder="₹ xxxx.xx" name="amount" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                    <input type="text" placeholder="₹ xxxx.xx" name="amount" required style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
                 </div>
 
                 <br />
@@ -106,23 +121,23 @@
             </form>
 
 
-
+            <!----add-net-bank-money---->
             <form asp-action="AddBankMoney" style="width: 202.8px;">
 
-                <div id="net-bank-email" style="display: none;">
-                    <input type="email" placeholder="login name" name="emailId" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                @*<div id="net-bank-email" style="display: none;">
+                    <input type="email" placeholder="login name" name="emailId" required style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
                 </div>
 
                 <br />
 
                 <div id="net-bank-password" style="display: none;">
-                    <input type="password" placeholder="password" name="password" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                    <input type="password" placeholder="password" name="password" required style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
                 </div>
 
-                <br />
+                <br />*@
 
                 <div id="net-bank-amount" style="display: none">
-                    <input type="text" placeholder="₹ xxxx.xx" name="amount" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                    <input type="text" placeholder="₹ xxxx.xx" name="amount" required style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
                 </div>
 
                 <br />
@@ -137,36 +152,37 @@
     </div>
 
 
+    <!----transfer-wallet---->
     <div class="transfer-wallet">
         <button onclick="transferWalletFunction()" class="wallet-button">
             <img src="~/images/transfer-wallet.png" />
             <h3>transfer to wallet</h3>
         </button>
-        
+
         <div id="transferWallet" style="display: none">
             <h3 class="activity-text">transfer wallet</h3>
 
             <form asp-action="TransferToWallet" style="width: 202.8px;">
 
                 <div id="upi-id">
-                    <input type="email" placeholder="upi id" name="upi" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                    <input type="email" placeholder="upi id" name="upi" required style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
                 </div>
 
                 <br />
 
-                <div id="upi-amount" >
-                    <input type="text" placeholder="₹ xxxx.xx" name="amount" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                <div id="upi-amount">
+                    <input type="text" placeholder="₹ xxxx.xx" name="amount" required style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
                 </div>
 
                 <br />
 
                 <div id="remarks">
-                    <input type="text" placeholder="remarks" name="remarks" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                    <input type="text" placeholder="remarks" name="remarks" required style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
                 </div>
 
                 <br />
 
-                <div id="net-bank-pay">
+                <div id="pay">
                     <button value="submit" role="button" style=" font-weight: 700; font-size: 1.2rem; background: linear-gradient(136.24deg, #0A0A0A -25.7%, #675515 22.02%, #9E7E0E 48.35%, #675515 79.56%, #1E1E1E 121.6%); border: none; padding: 10px; width: -webkit-fill-available; border-radius: 10px; color: #f0f0f0;">pay</button>
                 </div>
 
@@ -179,6 +195,7 @@
     </div>
 
 
+    <!----pay-bills---->
     <div class="pay-bills">
         <button onclick="payBillsFunction()" class="wallet-button">
             <img src="~/images/pay-bills.png" />
@@ -186,12 +203,12 @@
         </button>
 
         <div class="drop-down" id="pay-bills" style="display: none">
-            
+
             <h3 class="activity-text">pay bills</h3>
 
-            <form>
+            <form asp-action="PayBills">
                 <h5 for="select-service">select service</h5>
-                <select name="services" id="services" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;">
+                <select name="services" id="services" style="font-weight: 600; padding: 10px; border-radius: 5px; width: max-content; border: 3px solid #f0f0f0;">
                     <option value="broadband">broadband</option>
                     <option value="dth">dth</option>
                     <option value="mobile">mobile</option>
@@ -200,17 +217,24 @@
 
                 <br /> <br />
 
+                <div id="upi-amount">
+                    <input type="text" placeholder="₹ xxxx.xx" name="amount" required style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                </div>
+
+                <br />
+
                 <div id="select-service-pay">
                     <button value="submit" role="button" style=" font-weight: 700; font-size: 1.2rem; background: linear-gradient(136.24deg, #0A0A0A -25.7%, #675515 22.02%, #9E7E0E 48.35%, #675515 79.56%, #1E1E1E 121.6%); border: none; padding: 10px; width: -webkit-fill-available; border-radius: 10px; color: #f0f0f0;">pay</button>
                 </div>
             </form>
             <br />
         </div>
-        
+
 
     </div>
 
 
+    <!----transfer-bank---->
     <div class="transfer-bank">
         <button onclick="transferBankFunction()" class="wallet-button">
             <img src="~/images/transfer-bank.png" />
@@ -223,25 +247,25 @@
             <form asp-action="TransferToBank" style="width: 202.8px;">
 
                 <div id="account-no">
-                    <input type="text" placeholder="a/c no" name="account-no" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                    <input type="text" placeholder="a/c no" name="account-no" required style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
                 </div>
 
                 <br />
 
                 <div id="account-holder-name">
-                    <input type="text" placeholder="a/c holder name" name="account-holder-name" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                    <input type="text" placeholder="a/c holder name" name="account-holder-name" required style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
                 </div>
 
                 <br />
 
                 <div id="ifsc-code">
-                    <input type="text" placeholder="ifsc code" name="ifsc-code" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                    <input type="text" placeholder="ifsc code" name="ifsc-code" required style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
                 </div>
 
                 <br />
 
                 <div id="transfer-bank-amount">
-                    <input type="text" placeholder="₹ xxxx.xx" name="amount" style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
+                    <input type="text" placeholder="₹ xxxx.xx" name="amount" required style="font-weight: 600; padding: 10px; border-radius: 5px; width: fit-content; border: 3px solid #f0f0f0;" />
                 </div>
 
                 <br />
@@ -259,6 +283,7 @@
     </div>
 
 
+    <!----view-transactions---->
     <div class="transactions">
         <button onclick="transactionsFunction()" class="wallet-button">
             <img src="~/images/transaction.png" />
@@ -267,11 +292,15 @@
 
         <div id="transactions" style="display: none">
             <h3 class="activity-text">recent transactions</h3>
-        </div>    
+        </div>
+
+        <input type='button' onclick='tableFromJson()' value='Create Table from JSON data' />
+        <p id="showData"></p>
 
     </div>
 
 
+    <!----redeem-points---->
     <div class="redeem-points">
         <button onclick="redeemFunction()" class="wallet-button">
             <img src="~/images/points.png" />
@@ -386,20 +415,20 @@
 
 
         var chkNetBank = document.getElementById("net-bank");
-        var netBankText = document.getElementById("bank-image");
-        netBankText.style.display = chkNetBank.checked ? "block" : "none";
-        var netBankText = document.getElementById("net-bank-text");
-        netBankText.style.display = chkNetBank.checked ? "block" : "none";
-        var netBankEmail = document.getElementById("net-bank-email");
-        netBankEmail.style.display = chkNetBank.checked ? "block" : "none";
-        var netBankPassword = document.getElementById("net-bank-password");
-        netBankPassword.style.display = chkNetBank.checked ? "block" : "none";
+        //var netBankText = document.getElementById("bank-image");
+        //netBankText.style.display = chkNetBank.checked ? "block" : "none";
+        //var netBankText = document.getElementById("net-bank-text");
+        //netBankText.style.display = chkNetBank.checked ? "block" : "none";
+        //var netBankEmail = document.getElementById("net-bank-email");
+        //netBankEmail.style.display = chkNetBank.checked ? "block" : "none";
+        //var netBankPassword = document.getElementById("net-bank-password");
+        //netBankPassword.style.display = chkNetBank.checked ? "block" : "none";
         var netBankAmount = document.getElementById("net-bank-amount");
         netBankAmount.style.display = chkNetBank.checked ? "block" : "none";
         var netBankPay = document.getElementById("net-bank-pay");
         netBankPay.style.display = chkNetBank.checked ? "block" : "none";
 
-        
+
     }
 
     $(function () {
@@ -422,7 +451,119 @@
 
     /*----------------PAY BILLS----------------*/
 
-    
+
+
+
+    /*----------------TANSACTIONS---------------*/
+
+
+
+    let tableFromJson = () => {
+        // the json data.
+        /**/
+        const myBooks = [
+        {
+            "transactionDateTime": "2022-10-07T12:05:17.73",
+            "amount": 50.0000,
+            "info": "Money Added to Wallet using NetBank",
+            "remarks": null
+        },
+        {
+            "transactionDateTime": "2022-10-07T12:14:44.693",
+            "amount": 20.0000,
+            "info": "Money Added to Wallet using NetBank",
+            "remarks": null
+        },
+        {
+            "transactionDateTime": "2022-10-08T09:57:48.663",
+            "amount": 50.0000,
+            "info": "Money transferred to shikhar.pranjal3@okaxis",
+            "remarks": "Pizza Party"
+        },
+        {
+            "transactionDateTime": "2022-10-08T11:07:43.4",
+            "amount": 5.0000,
+            "info": "Money transferred to Shikadai Nara",
+            "remarks": "A/C No: 011112345678 IFSC: SBIN0005943"
+        },
+        {
+            "transactionDateTime": "2022-10-08T16:23:42.613",
+            "amount": 20.0000,
+            "info": "Money Added to Wallet using NetBank.",
+            "remarks": null
+        },
+        {
+            "transactionDateTime": "2022-10-08T16:32:25.89",
+            "amount": 5.0000,
+            "info": "Money Added to Wallet using Card.",
+            "remarks": null
+        },
+        {
+            "transactionDateTime": "2022-10-08T16:34:18.687",
+            "amount": 2.0000,
+            "info": "Money Added to Wallet using Card.",
+            "remarks": null
+        },
+        {
+            "transactionDateTime": "2022-10-08T16:36:54.283",
+            "amount": 2.0000,
+            "info": "Money Added to Wallet using Card.",
+            "remarks": null
+        },
+        {
+            "transactionDateTime": "2022-10-08T16:54:18.62",
+            "amount": 20.0000,
+            "info": "Money transferred to nara@okaxis",
+            "remarks": "pay back"
+        },
+        {
+            "transactionDateTime": "2022-10-08T16:58:48.387",
+            "amount": 14.0000,
+            "info": "Money transferred to Shikadai Nara",
+            "remarks": "A/C No: 011112345678 IFSC: SBIN0005943"
+        }
+    ]
+        /**/
+
+        // Extract value from table header.
+        // ('Book ID', 'Book Name', 'Category' and 'Price')
+        let col = [];
+    for (let i = 0; i < myBooks.length; i++) {
+        for (let key in myBooks[i]) {
+            if (col.indexOf(key) === -1) {
+                col.push(key);
+            }
+        }
+    }
+
+    // Create table.
+    const table = document.createElement("table");
+
+    // Create table header row using the extracted headers above.
+    let tr = table.insertRow(-1); // table row.
+
+    for (let i = 0; i < col.length; i++) {
+        let th = document.createElement("th"); // table header.
+        th.innerHTML = col[i];
+        tr.appendChild(th);
+    }
+
+    // add json data to the table as rows.
+    for (let i = 0; i < myBooks.length; i++) {
+
+        tr = table.insertRow(-1);
+
+        for (let j = 0; j < col.length; j++) {
+            let tabCell = tr.insertCell(-1);
+            tabCell.innerHTML = myBooks[i][col[j]];
+        }
+    }
+
+    // Now, add the newly created table with json data, to a container.
+    const divShowData = document.getElementById('showData');
+    divShowData.innerHTML = "";
+    divShowData.appendChild(table);
+}
 
 
 </script>

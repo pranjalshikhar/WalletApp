@@ -114,7 +114,7 @@ namespace ServiceLayer.Controllers
             var arrayList = new ArrayList();
             try
             {
-                arrayList = _walletServices.AddMoneyUsingBank(emailId, password, amount, ref status);
+                arrayList = _walletServices.AddMoneyUsingBank(emailId, amount, ref status);
                 if (Convert.ToBoolean(arrayList[0]) == true && Convert.ToString(arrayList[1]) == "Success")
                     message = "Money added to Wallet using NetBank.";
                 else
@@ -189,6 +189,30 @@ namespace ServiceLayer.Controllers
             }
 
             return Json(arrayList);
+        }
+
+
+        [HttpPost]
+        public JsonResult PayBills(string emailId, string services, decimal amount)
+        {
+            bool status = false;
+            string message = null;
+            var arrayList = new ArrayList();
+
+            try
+            {
+                arrayList = _walletServices.PayBills(services, amount, emailId);
+                if (Convert.ToBoolean(arrayList[0]) == true && Convert.ToString(arrayList[1]) == "Success")
+                    message = "Bill of " + services + " is paid of Amount ₹" + amount;
+                else
+                    message = Convert.ToString(arrayList[1]);
+            }
+            catch (Exception)
+            {
+                message = "Exception Caught.";
+                throw;
+            }
+            return Json(message);
         }
     }
 }

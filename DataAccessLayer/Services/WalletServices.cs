@@ -30,7 +30,10 @@ namespace DataAccessLayer.Services
                 var sendMoneyToBank = (from u in _walletAppContext.UserTransaction
                                        where u.EmailId == emailId && u.PaymentTypeId == 4
                                        select u.Amount).Sum();
-                amount = Math.Abs(addedMoney - (sendMoneyToWallet + sendMoneyToBank));
+                var billPaid = (from u in _walletAppContext.UserTransaction
+                                where u.EmailId == emailId && u.PaymentTypeId == 5
+                                select u.Amount).Sum();
+                amount = Math.Abs(addedMoney - (sendMoneyToWallet + sendMoneyToBank + billPaid));
                 amount = Math.Round(amount, 2);
             }
             catch (Exception)
@@ -172,71 +175,59 @@ namespace DataAccessLayer.Services
             return arrayList;
         }
 
-        public ArrayList AddMoneyUsingBank(string emailId, string password, decimal amount, ref bool status)
+        public ArrayList AddMoneyUsingBank(string emailId, decimal amount, ref bool status)
         {
             status = false;
             string message = null;
             var arrayList = new ArrayList();
             try
             {
-                var userEmailId = _walletAppContext.User.Where(u => u.EmailId == emailId && u.Password == password).FirstOrDefault();
-                if (userEmailId != null)
+                if (amount > 0)
                 {
-                    if(amount > 0)
+                    using (var walletAppContext = _walletAppContext.Database.BeginTransaction())
                     {
-                        using (var walletAppContext = _walletAppContext.Database.BeginTransaction())
+                        try
                         {
-                            try
+                            UserTransaction userTransaction = new UserTransaction();
+                            userTransaction.EmailId = emailId;
+                            userTransaction.Amount = amount;
+                            userTransaction.PaymentTypeId = 3;
+                            userTransaction.Info = "Money Added to Wallet using Net Bank.";
+                            userTransaction.StatusId = 1;
+                            userTransaction.IsRedeemed = false;
+                            var result = (from u in _walletAppContext.UserTransaction
+                                          where u.EmailId == emailId
+                                          select u.UserTransactionId);
+                            if (result == null)
+                                _walletAppContext.UserTransaction.Add(userTransaction);
+                            else
                             {
-                                UserTransaction userTransaction = new UserTransaction();
-                                userTransaction.EmailId = emailId;
-                                userTransaction.Amount = amount;
-                                userTransaction.PaymentTypeId = 3;
-                                userTransaction.Info = "Money Added to Wallet using NetBank.";
-                                userTransaction.StatusId = 1;
-                                userTransaction.IsRedeemed = false;
-                                var result = (from u in _walletAppContext.UserTransaction
-                                              where u.EmailId == emailId
-                                              select u.UserTransactionId);
-                                if (result == null)
-                                    _walletAppContext.UserTransaction.Add(userTransaction);
-                                else
-                                {
-                                    _walletAppContext.UserTransaction.Update(userTransaction);
-                                    _walletAppContext.SaveChanges();
-                                    walletAppContext.Commit();
-                                    status = true;
-                                    message = "Success";
-                                    arrayList.Add(status);
-                                    arrayList.Add(message);
-                                }
-                            }
-                            catch (Exception)
-                            {
-                                walletAppContext.Rollback();
-                                status = false;
+                                _walletAppContext.UserTransaction.Update(userTransaction);
+                                _walletAppContext.SaveChanges();
+                                walletAppContext.Commit();
+                                status = true;
+                                message = "Success.";
                                 arrayList.Add(status);
                                 arrayList.Add(message);
-                                throw;
                             }
                         }
-                    }
-                    else
-                    {
-                        status = false;
-                        message = "Amount should be greater than 0.";
-                        arrayList.Add(status);
-                        arrayList.Add(message);
+                        catch (Exception)
+                        {
+                            walletAppContext.Rollback();
+                            status = false;
+                            arrayList.Add(status);
+                            arrayList.Add(message);
+                            throw;
+                        }
                     }
                 }
                 else
                 {
                     status = false;
-                    message = "Invalid Credentials";
+                    message = "Amount should be greater than 0.";
                     arrayList.Add(status);
                     arrayList.Add(message);
                 }
-
             }
             catch (Exception)
             {
@@ -454,42 +445,17 @@ namespace DataAccessLayer.Services
 
         public ArrayList ViewTransactions(string emailId)
         {
-            var transactionDateList = new ArrayList();
-            var transactionAmountList = new ArrayList();
-            var transactionInfoList = new ArrayList();
-            var transactionRemarksList = new ArrayList();
             var transactionResultList = new ArrayList();
             try
             {
-                var transaction = from user in _walletAppContext.UserTransaction
+                var transaction = (from user in _walletAppContext.UserTransaction
                                   where user.EmailId == emailId
-                                  select new { user.TransactionDateTime, user.Amount, user.Info, user.Remarks };
-                transactionResultList.Add(transaction);
+                                  select new { user.TransactionDateTime, user.Amount, user.Info, user.Remarks });
+                foreach(var result in transaction)
+                {
+                    transactionResultList.Add(result);
+                }
 
-                //var transactionDate = (from u in _walletAppContext.UserTransaction
-                //                       where u.EmailId == emailId
-                //                       select u.TransactionDateTime);
-                //transactionDateList.Add(transactionDate);
-
-                //var transactionAmount = (from u in _walletAppContext.UserTransaction
-                //                         where u.EmailId == emailId
-                //                         select u.Amount);
-                //transactionAmountList.Add(transactionAmount);
-
-                //var transactionInfo = (from u in _walletAppContext.UserTransaction
-                //                       where u.EmailId == emailId
-                //                       select u.Info);
-                //transactionInfoList.Add(transactionInfo);
-
-                //var transactionRemarks = (from u in _walletAppContext.UserTransaction
-                //                          where u.EmailId == emailId
-                //                          select u.Remarks);
-                //transactionRemarksList.Add(transactionRemarks);
-
-                //transactionResultList.Add(transactionDateList);
-                //transactionResultList.Add(transactionAmount);
-                //transactionResultList.Add(transactionInfo);
-                //transactionResultList.Add(transactionRemarksList);
             }
             catch (Exception)
             {
@@ -497,6 +463,85 @@ namespace DataAccessLayer.Services
                 throw;
             }
             return transactionResultList;
+        }
+
+
+        public ArrayList PayBills(string services, decimal amount, string emailId)
+        {
+            bool status = false;
+            string message = null;
+            var arrayList = new ArrayList();
+
+            try
+            {
+                if (amount > 0)
+                {
+                    if (amount < ViewBalance(emailId))
+                    {
+                        using (var walletAppContext = _walletAppContext.Database.BeginTransaction())
+                        {
+                            try
+                            {
+                                UserTransaction userTransaction = new UserTransaction();
+                                userTransaction.EmailId = emailId;
+                                userTransaction.Amount = amount;
+                                userTransaction.PaymentTypeId = 5;
+                                userTransaction.Remarks = services;
+                                userTransaction.Info = "Bill Paid";
+                                userTransaction.StatusId = 1;
+                                userTransaction.IsRedeemed = false;
+                                var result = (from u in _walletAppContext.UserTransaction
+                                              where u.EmailId == emailId
+                                              select u.UserTransactionId);
+                                if (result == null)
+                                    _walletAppContext.UserTransaction.Add(userTransaction);
+                                else
+                                {
+                                    _walletAppContext.UserTransaction.Update(userTransaction);
+                                    _walletAppContext.SaveChanges();
+                                    walletAppContext.Commit();
+                                    status = true;
+                                    message = "Success";
+                                    arrayList.Add(status);
+                                    arrayList.Add(message);
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                walletAppContext.Rollback();
+                                status = false;
+                                arrayList.Add(status);
+                                arrayList.Add(message);
+                                throw;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        status = false;
+                        message = "Insufficient Wallet Money.";
+                        arrayList.Add(status);
+                        arrayList.Add(message);
+                    }
+                }
+                else
+                {
+                    status = false;
+                    message = "Amount should be greater than 0.";
+                    arrayList.Add(status);
+                    arrayList.Add(message);
+                }
+            }
+            catch (Exception)
+            {
+                status = false;
+                message = "Invalid Credentials";
+                arrayList.Add(status);
+                arrayList.Add(message);
+                throw;
+            }
+
+            return arrayList;
         }
     }
 }

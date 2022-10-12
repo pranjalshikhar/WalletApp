@@ -58,8 +58,6 @@ C:\Users\shikh\Documents\GitHub\WalletApp\PresentationLayer\obj\Debug\netcoreapp
 C:\Users\shikh\Documents\GitHub\WalletApp\PresentationLayer\obj\Debug\netcoreapp3.1\PresentationLayer.dll
 C:\Users\shikh\Documents\GitHub\WalletApp\PresentationLayer\obj\Debug\netcoreapp3.1\PresentationLayer.pdb
 C:\Users\shikh\Documents\GitHub\WalletApp\PresentationLayer\obj\Debug\netcoreapp3.1\PresentationLayer.genruntimeconfig.cache
-C:\Users\shikh\Documents\GitHub\WalletApp\PresentationLayer\obj\Debug\netcoreapp3.1\staticwebassets\PresentationLayer.StaticWebAssets.xml
-C:\Users\shikh\Documents\GitHub\WalletApp\PresentationLayer\obj\Debug\netcoreapp3.1\scopedcss\bundle\PresentationLayer.styles.css
 C:\Users\shikh\Documents\GitHub\WalletApp\PresentationLayer\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\shikh\Documents\GitHub\WalletApp\PresentationLayer\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.dll
 C:\Users\shikh\Documents\GitHub\WalletApp\PresentationLayer\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.dll

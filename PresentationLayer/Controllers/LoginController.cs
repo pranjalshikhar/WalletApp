@@ -24,6 +24,8 @@ namespace PresentationLayer.Controllers
         {
             ViewBag.amount = _walletServices.ViewBalance(HttpContext.Session.GetString("userEmail"));
             ViewBag.userName = _loginServices.GetUserByUserName(HttpContext.Session.GetString("userName"));
+            ViewBag.Transactions = _walletServices.ViewTransactions(HttpContext.Session.GetString("userEmail"));
+
             return View();
         }
 
@@ -64,10 +66,10 @@ namespace PresentationLayer.Controllers
             if (ModelState.IsValid)
             {
                 string emailId = HttpContext.Session.GetString("userEmail");
-                string password = HttpContext.Session.GetString("userPassword");
+                //string password = HttpContext.Session.GetString("userPassword");
                 decimal amount = Convert.ToInt64(frm["net-bank-amount"]);
                 bool status = false;
-                ArrayList message = _walletServices.AddMoneyUsingBank(emailId, password, amount, ref status);
+                ArrayList message = _walletServices.AddMoneyUsingBank(emailId, amount, ref status);
                 status = Convert.ToBoolean(message[0]);
                 try
                 {
@@ -130,6 +132,47 @@ namespace PresentationLayer.Controllers
                 string remarks = frm["remarks"];
                 string emailId = HttpContext.Session.GetString("userEmail");
                 ArrayList result = _walletServices.TransferToBank(accountNo, accountName, ifsc, amount, emailId);
+                bool status = Convert.ToBoolean(result[0]);
+                try
+                {
+                    if (status)
+                    {
+                        return RedirectToAction("LoginHome", "Login");
+                    }
+                    else
+                    {
+                        View("Shared", "_ErrorLayout");
+                    }
+                }
+                catch (Exception)
+                {
+                    View("Shared", "_ErrorLayout");
+                    throw;
+                }
+            }
+            return View("LoginHome");
+        }
+
+
+        public IActionResult ViewTransactions(IFormCollection frm)
+        {
+            if(ModelState.IsValid)
+            {
+                string emailId = HttpContext.Session.GetString("userEmail");
+                var arrayList = _walletServices.ViewTransactions(emailId);
+            }
+            return View("LoginHome");
+        }
+
+
+        public IActionResult PayBills(IFormCollection frm)
+        {
+            if(ModelState.IsValid)
+            {
+                string services = frm["services"];
+                decimal amount = Convert.ToInt64(frm["amount"]);
+                string emailId = HttpContext.Session.GetString("userEmail");
+                ArrayList result = _walletServices.PayBills(services, amount, emailId);
                 bool status = Convert.ToBoolean(result[0]);
                 try
                 {
