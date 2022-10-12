@@ -214,5 +214,29 @@ namespace ServiceLayer.Controllers
             }
             return Json(message);
         }
+
+
+        [HttpPut]
+        public JsonResult ChangePassword(string emailId, string oldPassword, string NewPassword)
+        {
+            bool status = false;
+            string message = null;
+            var arrayList = new ArrayList();
+
+            try
+            {
+                arrayList = _walletServices.ChangePassword(oldPassword, NewPassword, emailId);
+                if (Convert.ToBoolean(arrayList[0]) == true && Convert.ToString(arrayList[1]) == "Success")
+                    message = "Password Changed Successfully.";
+                else
+                    message = Convert.ToString(arrayList[1]);
+            }
+            catch (Exception)
+            {
+                message = "Exception Caught.";
+                throw;
+            }
+            return Json(message);
+        }
     }
 }

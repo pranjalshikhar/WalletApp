@@ -543,5 +543,75 @@ namespace DataAccessLayer.Services
 
             return arrayList;
         }
+
+
+        public ArrayList ChangePassword(string oldPassword, string newPassword, string emailId)
+        {
+            bool status = false;
+            string message = null;
+            string passwordRegex = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$";
+            var arrayList = new ArrayList();
+
+            try
+            {
+                if (!string.IsNullOrEmpty(newPassword) && Regex.IsMatch(newPassword, passwordRegex))
+                {
+
+                    _walletAppContext.User.Where(u=> u.EmailId == emailId).FirstOrDefault().Password = newPassword;
+                    _walletAppContext.User.Where(u => u.EmailId == emailId).FirstOrDefault().ModifiedTimestamp = DateTime.Now;
+                    _walletAppContext.SaveChanges();
+                    status = true;
+                    message = "Success";
+                    arrayList.Add(status);
+                    arrayList.Add(message);
+                    //using (var walletAppContext = _walletAppContext.Database.BeginTransaction())
+                    //{
+                    //    try
+                    //    {
+                    //        User user = new User();
+                    //        user.EmailId = emailId;
+                    //        user.Password = newPassword;
+                    //        user.ModifiedTimestamp = DateTime.Now;
+                    //        var result = (from u in _walletAppContext.User
+                    //                      where u.EmailId == emailId
+                    //                      select u.UserId);
+                    //        if (result != null)
+                    //            _walletAppContext.User.Update(user);
+                    //        _walletAppContext.SaveChanges();
+                    //        walletAppContext.Commit();
+                    //        status = true;
+                    //        message = "Success";
+                    //        arrayList.Add(status);
+                    //        arrayList.Add(message);
+                    //    }
+                    //    catch (Exception)
+                    //    {
+                    //        walletAppContext.Rollback();
+                    //        status = false;
+                    //        arrayList.Add(status);
+                    //        arrayList.Add(message);
+                    //        throw;
+                    //    }
+                    //}
+                }
+                else
+                {
+                    status = false;
+                    message = "Invalid Credentials";
+                    arrayList.Add(status);
+                    arrayList.Add(message);
+                }
+
+            }
+            catch (Exception)
+            {
+                status = false;
+                message = "Invalid Credentials";
+                arrayList.Add(status);
+                arrayList.Add(message);
+                throw;
+            }
+            return arrayList;
+        }
     }
 }

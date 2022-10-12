@@ -2,7 +2,6 @@
 @using Microsoft.AspNetCore.Http
 @using DataAccessLayer.Models
 @{
-    ViewData["Title"] = "LoginHome";
     Layout = "~/Views/Shared/_LoginHome.cshtml";
 }
 
@@ -17,7 +16,7 @@
     <ul class="nav-links">
         <li>
             <img src="~/images/password.png" />
-            <a href="#">change password</a>
+            <a href="/Login/ChangePassword">change password</a>
         </li>
         <li>
             <img src="~/images/logout.png" />
@@ -78,13 +77,13 @@
             <br />
 
             <!----net-bank-text---->
-            @*<div id="bank-image" style="display: none;">
+            <div id="bank-image" style="display: none;">
                 <h2 style="text-transform: uppercase; background: linear-gradient(to right, #f32170, #ff6b08, #cf23cf, #eedd44); -webkit-text-fill-color: transparent; -webkit-background-clip: text;">edu bank</h2>
             </div>
 
             <div id="net-bank-text" style="display: none;">
                 <h4 style="text-align: center">internet payment banking</h4>
-            </div>*@
+            </div>
 
 
             <!----add-card-money---->
@@ -292,10 +291,10 @@
 
         <div id="transactions" style="display: none">
             <h3 class="activity-text">recent transactions</h3>
+            <h4>kindly use web api to view the transaction, frontend part is on the way.</h4>
         </div>
 
-        <input type='button' onclick='tableFromJson()' value='Create Table from JSON data' />
-        <p id="showData"></p>
+        
 
     </div>
 
@@ -415,9 +414,9 @@
 
 
         var chkNetBank = document.getElementById("net-bank");
-        //var netBankText = document.getElementById("bank-image");
-        //netBankText.style.display = chkNetBank.checked ? "block" : "none";
-        //var netBankText = document.getElementById("net-bank-text");
+        var netBankText = document.getElementById("bank-image");
+        netBankText.style.display = chkNetBank.checked ? "block" : "none";
+        var netBankText = document.getElementById("net-bank-text");
         //netBankText.style.display = chkNetBank.checked ? "block" : "none";
         //var netBankEmail = document.getElementById("net-bank-email");
         //netBankEmail.style.display = chkNetBank.checked ? "block" : "none";

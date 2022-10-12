@@ -139,3 +139,5 @@ C:\Users\shikh\Documents\GitHub\WalletApp\PresentationLayer\obj\Debug\netcoreapp
 C:\Users\shikh\Documents\GitHub\WalletApp\PresentationLayer\obj\Debug\netcoreapp3.1\Razor\Views\Home\Register.cshtml.g.cs
 C:\Users\shikh\Documents\GitHub\WalletApp\PresentationLayer\obj\Debug\netcoreapp3.1\Razor\Views\Home\Error.cshtml.g.cs
 C:\Users\shikh\Documents\GitHub\WalletApp\PresentationLayer\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ErrorLayout.cshtml.g.cs
+C:\Users\shikh\Documents\GitHub\WalletApp\PresentationLayer\obj\Debug\netcoreapp3.1\Razor\Views\Login\ChangePassword.cshtml.g.cs
+C:\Users\shikh\Documents\GitHub\WalletApp\PresentationLayer\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ChangePassword.cshtml.g.cs

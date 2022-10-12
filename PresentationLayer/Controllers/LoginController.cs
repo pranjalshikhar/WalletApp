@@ -66,8 +66,7 @@ namespace PresentationLayer.Controllers
             if (ModelState.IsValid)
             {
                 string emailId = HttpContext.Session.GetString("userEmail");
-                //string password = HttpContext.Session.GetString("userPassword");
-                decimal amount = Convert.ToInt64(frm["net-bank-amount"]);
+                decimal amount = Convert.ToInt64(frm["amount"]);
                 bool status = false;
                 ArrayList message = _walletServices.AddMoneyUsingBank(emailId, amount, ref status);
                 status = Convert.ToBoolean(message[0]);
@@ -192,6 +191,36 @@ namespace PresentationLayer.Controllers
                 }
             }
             return View("LoginHome");
+        }
+
+
+        public IActionResult ChangePassword(IFormCollection frm)
+        {
+            if(ModelState.IsValid)
+            {
+                string oldPassword = frm["old-password"];
+                string newPassword = frm["new-password"];
+                string emailId = HttpContext.Session.GetString("userEmail");
+                ArrayList result = _walletServices.ChangePassword(oldPassword, newPassword, emailId);
+                bool status = Convert.ToBoolean(result[0]);
+                try
+                {
+                    if (status)
+                    {
+                        return RedirectToAction("Login", "Home");
+                    }
+                    else
+                    {
+                        View("Shared", "_ErrorLayout");
+                    }
+                }
+                catch (Exception)
+                {
+                    View("Shared", "_ErrorLayout");
+                    throw;
+                }
+            }
+            return View("ChangePassword");
         }
     }
 }
