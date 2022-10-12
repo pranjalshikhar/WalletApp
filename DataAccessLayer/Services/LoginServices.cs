@@ -92,5 +92,10 @@ namespace DataAccessLayer.Services
                 throw;
             }
         }
+
+        //public string GetUserEmail(string emailId)
+        //{
+
+        //}
     }
 }

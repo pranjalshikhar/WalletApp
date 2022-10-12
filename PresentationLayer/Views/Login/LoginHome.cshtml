@@ -1,6 +1,9 @@
 ﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextaccessor
 @using Microsoft.AspNetCore.Http
 @using DataAccessLayer.Models
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
 @{
     Layout = "~/Views/Shared/_LoginHome.cshtml";
 }
@@ -39,6 +42,8 @@
     <div class="list">
         <img src="~/images/points.png" />
         <h2>0 points redeem.</h2>
+        <p hidden id="transEmail">@ViewBag.email</p>
+        <p hidden id="APIURL">@Configuration.GetSection("WebAPIUrl")["apiUrl"]</p>
     </div>
 </div>
 
@@ -291,7 +296,9 @@
 
         <div id="transactions" style="display: none">
             <h3 class="activity-text">recent transactions</h3>
-            <h4>kindly use web api to view the transaction, frontend part is on the way.</h4>
+            @*<h4>kindly use web api to view the transaction, frontend part is on the way.</h4>
+            <input onclick='tableFromJson()' />*@
+            <p id="showData"></p>
         </div>
 
         
@@ -387,6 +394,25 @@
         } else {
             x.style.display = "none";
         }
+        var hostname = window.location.origin;
+        var email = document.getElementById("transEmail").innerHTML;
+        var url = document.getElementById("APIURL").innerHTML;  
+        url = url + `/User/ViewTransactions?emailId=${email}`;
+        console.log(url);
+        $.ajax({
+            url: url, //PHP file to execute
+            type: 'GET', //method used POST or GET
+            // Parameters passed to the PHP file
+            success: function (result) { // Has to be there !
+                debugger
+                tableFromJson(result);
+            },
+
+            error: function (result, statut, error) { // Handle errors
+
+            }
+
+        });
     }
 
     function redeemFunction() {
@@ -457,78 +483,78 @@
 
 
 
-    let tableFromJson = () => {
+    let tableFromJson = (result) => {
         // the json data.
         /**/
-        const myBooks = [
-        {
-            "transactionDateTime": "2022-10-07T12:05:17.73",
-            "amount": 50.0000,
-            "info": "Money Added to Wallet using NetBank",
-            "remarks": null
-        },
-        {
-            "transactionDateTime": "2022-10-07T12:14:44.693",
-            "amount": 20.0000,
-            "info": "Money Added to Wallet using NetBank",
-            "remarks": null
-        },
-        {
-            "transactionDateTime": "2022-10-08T09:57:48.663",
-            "amount": 50.0000,
-            "info": "Money transferred to shikhar.pranjal3@okaxis",
-            "remarks": "Pizza Party"
-        },
-        {
-            "transactionDateTime": "2022-10-08T11:07:43.4",
-            "amount": 5.0000,
-            "info": "Money transferred to Shikadai Nara",
-            "remarks": "A/C No: 011112345678 IFSC: SBIN0005943"
-        },
-        {
-            "transactionDateTime": "2022-10-08T16:23:42.613",
-            "amount": 20.0000,
-            "info": "Money Added to Wallet using NetBank.",
-            "remarks": null
-        },
-        {
-            "transactionDateTime": "2022-10-08T16:32:25.89",
-            "amount": 5.0000,
-            "info": "Money Added to Wallet using Card.",
-            "remarks": null
-        },
-        {
-            "transactionDateTime": "2022-10-08T16:34:18.687",
-            "amount": 2.0000,
-            "info": "Money Added to Wallet using Card.",
-            "remarks": null
-        },
-        {
-            "transactionDateTime": "2022-10-08T16:36:54.283",
-            "amount": 2.0000,
-            "info": "Money Added to Wallet using Card.",
-            "remarks": null
-        },
-        {
-            "transactionDateTime": "2022-10-08T16:54:18.62",
-            "amount": 20.0000,
-            "info": "Money transferred to nara@okaxis",
-            "remarks": "pay back"
-        },
-        {
-            "transactionDateTime": "2022-10-08T16:58:48.387",
-            "amount": 14.0000,
-            "info": "Money transferred to Shikadai Nara",
-            "remarks": "A/C No: 011112345678 IFSC: SBIN0005943"
-        }
-    ]
+    //    const myBooks = [
+    //    {
+    //        "transactionDateTime": "2022-10-07T12:05:17.73",
+    //        "amount": 50.0000,
+    //        "info": "Money Added to Wallet using NetBank",
+    //        "remarks": null
+    //    },
+    //    {
+    //        "transactionDateTime": "2022-10-07T12:14:44.693",
+    //        "amount": 20.0000,
+    //        "info": "Money Added to Wallet using NetBank",
+    //        "remarks": null
+    //    },
+    //    {
+    //        "transactionDateTime": "2022-10-08T09:57:48.663",
+    //        "amount": 50.0000,
+    //        "info": "Money transferred to shikhar.pranjal3@okaxis",
+    //        "remarks": "Pizza Party"
+    //    },
+    //    {
+    //        "transactionDateTime": "2022-10-08T11:07:43.4",
+    //        "amount": 5.0000,
+    //        "info": "Money transferred to Shikadai Nara",
+    //        "remarks": "A/C No: 011112345678 IFSC: SBIN0005943"
+    //    },
+    //    {
+    //        "transactionDateTime": "2022-10-08T16:23:42.613",
+    //        "amount": 20.0000,
+    //        "info": "Money Added to Wallet using NetBank.",
+    //        "remarks": null
+    //    },
+    //    {
+    //        "transactionDateTime": "2022-10-08T16:32:25.89",
+    //        "amount": 5.0000,
+    //        "info": "Money Added to Wallet using Card.",
+    //        "remarks": null
+    //    },
+    //    {
+    //        "transactionDateTime": "2022-10-08T16:34:18.687",
+    //        "amount": 2.0000,
+    //        "info": "Money Added to Wallet using Card.",
+    //        "remarks": null
+    //    },
+    //    {
+    //        "transactionDateTime": "2022-10-08T16:36:54.283",
+    //        "amount": 2.0000,
+    //        "info": "Money Added to Wallet using Card.",
+    //        "remarks": null
+    //    },
+    //    {
+    //        "transactionDateTime": "2022-10-08T16:54:18.62",
+    //        "amount": 20.0000,
+    //        "info": "Money transferred to nara@okaxis",
+    //        "remarks": "pay back"
+    //    },
+    //    {
+    //        "transactionDateTime": "2022-10-08T16:58:48.387",
+    //        "amount": 14.0000,
+    //        "info": "Money transferred to Shikadai Nara",
+    //        "remarks": "A/C No: 011112345678 IFSC: SBIN0005943"
+    //    }
+    //]
         /**/
 
         // Extract value from table header.
         // ('Book ID', 'Book Name', 'Category' and 'Price')
         let col = [];
-    for (let i = 0; i < myBooks.length; i++) {
-        for (let key in myBooks[i]) {
+    for (let i = 0; i < result.length; i++) {
+        for (let key in result[i]) {
             if (col.indexOf(key) === -1) {
                 col.push(key);
             }
@@ -548,13 +574,13 @@
     }
 
     // add json data to the table as rows.
-    for (let i = 0; i < myBooks.length; i++) {
+    for (let i = 0; i < result.length; i++) {
 
         tr = table.insertRow(-1);
 
         for (let j = 0; j < col.length; j++) {
             let tabCell = tr.insertCell(-1);
-            tabCell.innerHTML = myBooks[i][col[j]];
+            tabCell.innerHTML = result[i][col[j]];
         }
     }
 

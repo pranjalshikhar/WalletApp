@@ -24,6 +24,7 @@ namespace PresentationLayer.Controllers
         {
             ViewBag.amount = _walletServices.ViewBalance(HttpContext.Session.GetString("userEmail"));
             ViewBag.userName = _loginServices.GetUserByUserName(HttpContext.Session.GetString("userName"));
+            ViewBag.email = HttpContext.Session.GetString("userEmail");
             ViewBag.Transactions = _walletServices.ViewTransactions(HttpContext.Session.GetString("userEmail"));
 
             return View();
