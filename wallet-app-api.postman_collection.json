@@ -1,0 +1,399 @@
+{
+	"info": {
+		"_postman_id": "3252c1da-dc17-4fb8-97b1-5d66b15dca69",
+		"name": "wallet-app-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15841806"
+	},
+	"item": [
+		{
+			"name": "VerifyUser",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"ShowID\":\"S1004\",\r\n\t\"ScreenID\":\"CHEPHO4\",\r\n\t\"MovieID\":\"MOV01\",\r\n\t\"Date\":\"2017-06-29\",\r\n\t\"Time\":\"2 PM\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44316/api/User/VerifyUser?emailId=&password=",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44316",
+					"path": [
+						"api",
+						"User",
+						"VerifyUser"
+					],
+					"query": [
+						{
+							"key": "emailId",
+							"value": ""
+						},
+						{
+							"key": "password",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RegisterUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44316/api/User/RegisterUser?name=&emailId=&number=&password=",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44316",
+					"path": [
+						"api",
+						"User",
+						"RegisterUser"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": ""
+						},
+						{
+							"key": "emailId",
+							"value": ""
+						},
+						{
+							"key": "number",
+							"value": ""
+						},
+						{
+							"key": "password",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ViewBalance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44316/api/User/ViewBalance?emailId=",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44316",
+					"path": [
+						"api",
+						"User",
+						"ViewBalance"
+					],
+					"query": [
+						{
+							"key": "emailId",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddMoneyUsingCard",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44316/api/User/AddMoneyUsingCard?cardNumber=&emailId=&cvv=&expiryDate=&amount=",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44316",
+					"path": [
+						"api",
+						"User",
+						"AddMoneyUsingCard"
+					],
+					"query": [
+						{
+							"key": "cardNumber",
+							"value": ""
+						},
+						{
+							"key": "emailId",
+							"value": ""
+						},
+						{
+							"key": "cvv",
+							"value": ""
+						},
+						{
+							"key": "expiryDate",
+							"value": ""
+						},
+						{
+							"key": "amount",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserByUserName",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44316/api/User/GetUserByUserName?emailId=",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44316",
+					"path": [
+						"api",
+						"User",
+						"GetUserByUserName"
+					],
+					"query": [
+						{
+							"key": "emailId",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddMoneyUsingBank",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44316/api/User/AddMoneyUsingBank?emailId=&amount=",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44316",
+					"path": [
+						"api",
+						"User",
+						"AddMoneyUsingBank"
+					],
+					"query": [
+						{
+							"key": "emailId",
+							"value": ""
+						},
+						{
+							"key": "amount",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TransferToWallet",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44316/api/User/TransferToWallet?upi=&amount=&remarks=&emailId=",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44316",
+					"path": [
+						"api",
+						"User",
+						"TransferToWallet"
+					],
+					"query": [
+						{
+							"key": "upi",
+							"value": ""
+						},
+						{
+							"key": "amount",
+							"value": ""
+						},
+						{
+							"key": "remarks",
+							"value": ""
+						},
+						{
+							"key": "emailId",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TransferToBank",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44316/api/User/TransferToBank?accountNo=&accountName=&ifsc=&amount=&emailId=",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44316",
+					"path": [
+						"api",
+						"User",
+						"TransferToBank"
+					],
+					"query": [
+						{
+							"key": "accountNo",
+							"value": ""
+						},
+						{
+							"key": "accountName",
+							"value": ""
+						},
+						{
+							"key": "ifsc",
+							"value": ""
+						},
+						{
+							"key": "amount",
+							"value": ""
+						},
+						{
+							"key": "emailId",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ViewTransactions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44316/api/User/ViewTransactions?emailId=",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44316",
+					"path": [
+						"api",
+						"User",
+						"ViewTransactions"
+					],
+					"query": [
+						{
+							"key": "emailId",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PayBills",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44316/api/User/PayBills?emailId=&services=&amount=",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44316",
+					"path": [
+						"api",
+						"User",
+						"PayBills"
+					],
+					"query": [
+						{
+							"key": "emailId",
+							"value": ""
+						},
+						{
+							"key": "services",
+							"value": ""
+						},
+						{
+							"key": "amount",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ChangePassword",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44316/api/User/ChangePassword?emailId=&oldPassword=&newPassword=",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44316",
+					"path": [
+						"api",
+						"User",
+						"ChangePassword"
+					],
+					"query": [
+						{
+							"key": "emailId",
+							"value": ""
+						},
+						{
+							"key": "oldPassword",
+							"value": ""
+						},
+						{
+							"key": "newPassword",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
