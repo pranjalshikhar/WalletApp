@@ -1,3 +1,3 @@
-# Walletera - First Look
+# Walletera
 
-<img  src="https://raw.githubusercontent.com/pranjalshikhar/WalletApp/main/Desktop%20-%2013.jpg"/>
+<img  src="https://raw.githubusercontent.com/pranjalshikhar/WalletApp/main/wallet-app.png"/>
